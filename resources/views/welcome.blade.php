@@ -25,7 +25,22 @@
     <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-400/20 rounded-full blur-[120px] z-0 pointer-events-none"></div>
     <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-300/20 rounded-full blur-[120px] z-0 pointer-events-none"></div>
 
-    <nav class="relative z-50 px-6 py-6 max-w-7xl mx-auto w-full flex justify-between items-center">
+    <style>
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <nav class="relative z-50 px-6 py-6 max-w-7xl mx-auto w-full flex justify-between items-center opacity-0 animate-[slideDown_0.6s_ease-out_forwards]">
         <div class="flex items-center gap-3 group cursor-pointer">
             <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -57,9 +72,12 @@
             Sistem Aktif & Memantau Lokasi
         </div>
         
-        <h1 class="text-5xl md:text-7xl font-extrabold text-slate-800 mb-6 leading-tight tracking-tight">
+        <h1 class="text-5xl md:text-7xl font-extrabold text-slate-800 mb-6 leading-tight tracking-tight opacity-0 animate-[slideDown_0.8s_ease-out_forwards]">
             Pemantauan Banjir <br/> 
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Cerdas & Real-Time</span>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 relative inline-block">
+                Cerdas & Real-Time
+                <span class="absolute inset-0 bg-blue-400 blur-2xl opacity-20 animate-[pulse_3s_ease-in-out_infinite]"></span>
+            </span>
         </h1>
         
         <p class="text-lg md:text-xl text-slate-600 max-w-2xl mb-10 leading-relaxed">
@@ -96,7 +114,67 @@
         </div>
     </main>
 
-    <section id="fitur" class="relative z-10 max-w-7xl mx-auto px-4 w-full mb-24 scroll-mt-24">
+    <section class="relative z-10 max-w-7xl mx-auto px-4 w-full mb-24 scroll-mt-24 reveal-on-scroll" id="monitoring">
+        <div class="text-center mb-12">
+            <span class="text-xs font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">Live Demo</span>
+            <h2 class="text-3xl md:text-4xl font-black text-slate-800 mt-3">Pantauan Real-Time</h2>
+            <p class="text-slate-500 mt-3 max-w-lg mx-auto">Status terkini bantaran sungai dan prediksi cuaca langsung dari perangkat cerdas di lapangan.</p>
+        </div>
+
+        <div class="flex justify-center max-w-lg mx-auto">
+
+            <!-- WIDGET PRAKIRAAN CUACA 3 HARI KE DEPAN -->
+            <div class="bg-white/40 backdrop-blur-md rounded-3xl p-8 shadow-sm border border-white/40 relative overflow-hidden flex flex-col justify-between group transition-all duration-500 hover:shadow-xl hover:-translate-y-1">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-400 to-indigo-500 opacity-50"></div>
+                <div class="flex-grow flex flex-col">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="p-2.5 bg-sky-100 text-sky-600 rounded-xl shadow-sm">
+                            <i data-lucide="calendar-days" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800">Prakiraan 3 Hari</h3>
+                            <p class="text-xs text-slate-500">Prediksi berbasis data cuaca API</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4 flex-grow flex flex-col justify-center">
+                        <div class="flex items-center justify-between p-4 bg-white/60 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 group-hover:bg-white/80 hover:-translate-y-0.5">
+                            <div class="flex items-center gap-4">
+                                <div class="p-2 bg-amber-50 rounded-xl text-amber-500 shadow-sm"><i data-lucide="sun" class="w-6 h-6"></i></div>
+                                <div>
+                                    <p class="text-sm font-bold text-slate-700">Besok</p>
+                                    <p class="text-xs text-slate-500">Cerah Berawan</p>
+                                </div>
+                            </div>
+                            <span class="text-xl font-black text-slate-800">32°</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-white/60 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 group-hover:bg-white/80 hover:-translate-y-0.5">
+                            <div class="flex items-center gap-4">
+                                <div class="p-2 bg-blue-50 rounded-xl text-blue-500 shadow-sm"><i data-lucide="cloud-rain" class="w-6 h-6"></i></div>
+                                <div>
+                                    <p class="text-sm font-bold text-slate-700">Lusa</p>
+                                    <p class="text-xs text-slate-500">Hujan Ringan</p>
+                                </div>
+                            </div>
+                            <span class="text-xl font-black text-slate-800">28°</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-white/60 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 group-hover:bg-white/80 hover:-translate-y-0.5">
+                            <div class="flex items-center gap-4">
+                                <div class="p-2 bg-indigo-50 rounded-xl text-indigo-500 shadow-sm"><i data-lucide="cloud-lightning" class="w-6 h-6"></i></div>
+                                <div>
+                                    <p class="text-sm font-bold text-slate-700">H+3</p>
+                                    <p class="text-xs text-slate-500">Hujan Petir</p>
+                                </div>
+                            </div>
+                            <span class="text-xl font-black text-slate-800">26°</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="fitur" class="relative z-10 max-w-7xl mx-auto px-4 w-full mb-24 scroll-mt-24 reveal-on-scroll">
         <div class="text-center mb-16">
             <h2 class="text-3xl md:text-4xl font-black text-slate-800">Teknologi di Balik Flood-Vision</h2>
             <p class="text-slate-500 mt-3 max-w-lg mx-auto">Integrasi arsitektur perangkat lunak modern untuk kecepatan pengiriman data informasi bencana.</p>
@@ -129,7 +207,7 @@
         </div>
     </section>
 
-    <section class="relative z-10 max-w-6xl mx-auto px-4 w-full mb-28">
+    <section class="relative z-10 max-w-6xl mx-auto px-4 w-full mb-28 reveal-on-scroll">
         <div class="bg-white/60 backdrop-blur-md rounded-[2.5rem] p-8 md:p-12 border border-slate-200/60 shadow-sm">
             <div class="text-center mb-12">
                 <span class="text-xs font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">Arsitektur Kerja</span>
@@ -166,7 +244,7 @@
         </div>
     </section>
 
-    <section class="relative z-10 max-w-7xl mx-auto px-4 w-full mb-28">
+    <section class="relative z-10 max-w-7xl mx-auto px-4 w-full mb-28 reveal-on-scroll">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div class="space-y-6">
                 <div class="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 uppercase tracking-wider bg-indigo-50 px-3 py-1 rounded-full">
@@ -212,8 +290,8 @@
         </div>
     </section>
 
-    <section class="relative z-10 max-w-5xl mx-auto px-4 w-full mb-20">
-        <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[2.5rem] p-8 md:p-12 text-center text-white shadow-xl shadow-blue-500/20 relative overflow-hidden group">
+    <section class="relative z-10 max-w-5xl mx-auto px-4 w-full mb-20 reveal-on-scroll">
+        <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[2.5rem] p-8 md:p-12 text-center text-white shadow-xl shadow-blue-500/20 relative overflow-hidden group hover:shadow-2xl transition-all duration-500">
             <div class="absolute -right-10 -bottom-10 opacity-10 group-hover:scale-110 transition-transform duration-500">
                 <svg class="w-64 h-64" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14 gang-0.18-.357.223-.548.223l.188-2.85 5.18-4.686c.223-.204-.054-.31-.346-.116l-6.405 4.026-2.76-.86c-.6-.188-.614-.6.125-.89l10.793-4.16c.5-.184.945.116.808.887z"/></svg>
             </div>
@@ -232,8 +310,8 @@
     </section>
 
     <!-- NEWS SECTION START -->
-    <section class="relative z-10 max-w-7xl mx-auto px-4 w-full mb-20" id="berita">
-        <div class="mt-8 bg-white/40 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200/60 relative z-10">
+    <section class="relative z-10 max-w-7xl mx-auto px-4 w-full mb-20 reveal-on-scroll" id="berita">
+        <div class="mt-8 bg-white/40 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-sm border border-white/40 relative z-10">
             <div class="flex items-center justify-between mb-8">
                 <div class="flex items-center gap-3">
                     <div class="p-2.5 bg-indigo-100/80 text-indigo-600 rounded-xl backdrop-blur-sm shadow-sm">
@@ -321,6 +399,20 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         lucide.createIcons();
+
+        // Reveal on scroll observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+            
+        });
 
         function bukaModalBerita(id, judul, tanggal, fotoUrl) {
             document.getElementById('modalBeritaJudul').innerText = judul;

@@ -10,7 +10,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-20">
             <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
                 
-                <div class="xl:col-span-1 space-y-6">
+                <div class="xl:col-span-1 space-y-6 sticky top-6 self-start">
 
                     <div class="bg-white/40 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-white/40 flex flex-col relative overflow-hidden group transition-all duration-500" id="floodStatusCard">
                         <div class="absolute top-0 right-0 w-40 h-40 bg-blue-50 rounded-full blur-3xl -z-10 group-hover:bg-blue-100 transition-colors"></div>
@@ -63,24 +63,48 @@
                                 <span class="mt-0.5 w-5 h-5 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0 text-xs font-bold">1</span>
                                 <span class="text-slate-600">Pantau terus pemberitahuan dari sistem ini secara berkala.</span>
                             </li>
-                            <li class="flex items-start gap-3 text-sm">
-                                <span class="mt-0.5 w-5 h-5 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0 text-xs font-bold">2</span>
-                                <span class="text-slate-600">Siapkan tas siaga darurat berisi dokumen penting.</span>
-                            </li>
-                            <li class="flex items-start gap-3 text-sm">
-                                <span class="mt-0.5 w-5 h-5 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 text-xs font-bold">3</span>
-                                <span class="text-slate-600">Hubungi BPBD Setempat: <strong class="text-slate-800">0451-421-396</strong></span>
-                            </li>
-                            <li class="flex items-start gap-3 text-sm">
+                            <li class="flex items-start gap-3 text-sm mb-4">
                                 <span class="mt-0.5 w-5 h-5 rounded-full bg-red-100 text-red-600 flex items-center justify-center shrink-0 text-xs font-bold">!</span>
                                 <span class="text-slate-600">Jika status <strong class="text-red-600">AWAS</strong>, segera evakuasi ke titik kumpul terdekat.</span>
                             </li>
                         </ul>
 
-                        <button onclick="toggleMapModal()" class="mt-5 w-full py-2.5 bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-600 font-bold text-sm rounded-xl transition-colors flex items-center justify-center gap-2 border border-slate-200">
+                        <!-- SEKSI 3: Hub Kontak Darurat Instan -->
+                        <div class="mt-4">
+                            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Panggilan Darurat Instan</p>
+                            <div class="grid grid-cols-2 gap-3">
+                                <a href="tel:0451421396" class="flex flex-col items-center justify-center p-3 bg-white/50 border border-red-100 rounded-2xl hover:bg-red-50 hover:border-red-200 hover:shadow-[0_0_15px_rgba(239,68,68,0.2)] hover:scale-[1.02] transition-all duration-300 group cursor-pointer">
+                                    <div class="p-2 bg-red-100 text-red-600 rounded-full mb-2 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                                        <i data-lucide="shield" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-xs font-bold text-slate-700">BPBD</span>
+                                </a>
+                                <a href="tel:115" class="flex flex-col items-center justify-center p-3 bg-white/50 border border-orange-100 rounded-2xl hover:bg-orange-50 hover:border-orange-200 hover:shadow-[0_0_15px_rgba(249,115,22,0.2)] hover:scale-[1.02] transition-all duration-300 group cursor-pointer">
+                                    <div class="p-2 bg-orange-100 text-orange-600 rounded-full mb-2 group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                                        <i data-lucide="life-buoy" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-xs font-bold text-slate-700">Tim SAR</span>
+                                </a>
+                                <a href="tel:119" class="flex flex-col items-center justify-center p-3 bg-white/50 border border-emerald-100 rounded-2xl hover:bg-emerald-50 hover:border-emerald-200 hover:shadow-[0_0_15px_rgba(16,185,129,0.2)] hover:scale-[1.02] transition-all duration-300 group cursor-pointer">
+                                    <div class="p-2 bg-emerald-100 text-emerald-600 rounded-full mb-2 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                                        <i data-lucide="truck" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-xs font-bold text-slate-700">Ambulans</span>
+                                </a>
+                                <a href="tel:113" class="flex flex-col items-center justify-center p-3 bg-white/50 border border-rose-100 rounded-2xl hover:bg-rose-50 hover:border-rose-200 hover:shadow-[0_0_15px_rgba(244,63,94,0.2)] hover:scale-[1.02] transition-all duration-300 group cursor-pointer">
+                                    <div class="p-2 bg-rose-100 text-rose-600 rounded-full mb-2 group-hover:bg-rose-600 group-hover:text-white transition-colors">
+                                        <i data-lucide="flame" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-xs font-bold text-slate-700">Damkar</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <button onclick="toggleMapModal()" class="mt-5 w-full py-2.5 bg-white/60 hover:bg-blue-50 text-slate-700 hover:text-blue-600 font-bold text-sm rounded-xl transition-colors flex items-center justify-center gap-2 border border-slate-200 shadow-sm backdrop-blur-sm">
                             <i data-lucide="map" class="w-4 h-4"></i> Lihat Peta Evakuasi
                         </button>
                     </div>
+
 
                     <div class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-3xl p-6 text-white shadow-lg shadow-blue-500/30 relative overflow-hidden group">
                         <div class="absolute -right-6 -bottom-6 opacity-20 group-hover:scale-110 transition-transform duration-500">
@@ -95,6 +119,51 @@
                             </a>
                         </div>
                     </div>
+
+                    <!-- WIDGET PRAKIRAAN CUACA 3 HARI -->
+                    <div class="bg-white/40 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-white/40 relative overflow-hidden">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="p-2 bg-sky-100 text-sky-600 rounded-xl">
+                                <i data-lucide="calendar-days" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-base font-bold text-slate-800">Prakiraan 3 Hari</h3>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-white/60 rounded-xl border border-slate-100 shadow-sm">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="sun" class="w-5 h-5 text-amber-500"></i>
+                                    <div>
+                                        <p class="text-xs font-bold text-slate-700">Besok</p>
+                                        <p class="text-[10px] text-slate-500">Cerah Berawan</p>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-black text-slate-800">32°</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-white/60 rounded-xl border border-slate-100 shadow-sm">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="cloud-rain" class="w-5 h-5 text-blue-500"></i>
+                                    <div>
+                                        <p class="text-xs font-bold text-slate-700">Lusa</p>
+                                        <p class="text-[10px] text-slate-500">Hujan Ringan</p>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-black text-slate-800">28°</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-white/60 rounded-xl border border-slate-100 shadow-sm">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="cloud-lightning" class="w-5 h-5 text-indigo-500"></i>
+                                    <div>
+                                        <p class="text-xs font-bold text-slate-700">H+3</p>
+                                        <p class="text-[10px] text-slate-500">Hujan Petir</p>
+                                    </div>
+                                </div>
+                                <span class="text-sm font-black text-slate-800">26°</span>
+                            </div>
+                        </div>
+                    </div>
+
+
 
                 </div>
 
@@ -169,7 +238,43 @@
                         </div>
                     </div>
 
-                    <div class="bg-white/70 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-slate-200/60 flex flex-col h-96 relative group">
+                    <!-- SEKSI 1: Widget Statistik Hari Ini -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white/40 backdrop-blur-md border border-white/40 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
+                            <div class="p-3 bg-blue-100/80 text-blue-600 rounded-xl">
+                                <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">Rata-rata Air</p>
+                                <p class="text-xl font-black text-slate-800" id="statRataRata">--%</p>
+                            </div>
+                        </div>
+                        <div class="bg-white/40 backdrop-blur-md border border-white/40 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
+                            <div class="p-3 bg-amber-100/80 text-amber-600 rounded-xl">
+                                <i data-lucide="bell-ring" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">Peringatan (Harian)</p>
+                                <p class="text-xl font-black text-slate-800" id="statPeringatan">--</p>
+                            </div>
+                        </div>
+                        <div class="bg-white/40 backdrop-blur-md border border-white/40 rounded-2xl p-4 flex items-center gap-4 shadow-sm relative overflow-hidden">
+                            <div class="absolute -right-4 -bottom-4 w-20 h-20 bg-green-500/10 rounded-full blur-xl"></div>
+                            <div class="p-3 bg-emerald-100/80 text-emerald-600 rounded-xl">
+                                <i data-lucide="activity" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">Sistem Sensor</p>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping absolute"></span>
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 relative inline-flex"></span>
+                                    <p class="text-sm font-black text-emerald-600">OPTIMAL</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/40 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-white/40 flex flex-col h-96 relative group mt-8">
                         <div class="flex justify-between items-center mb-6">
                             <div class="flex items-center gap-3">
                                 <div class="p-2 bg-indigo-100 text-indigo-600 rounded-xl">
@@ -214,6 +319,89 @@
                             </div>
                         </div>
 
+                    </div>
+
+                    <!-- WIDGET TAMBAHAN DI KOLOM KANAN -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                        <!-- SEKSI 2: Checklist Tas Siaga Bencana -->
+                        <div class="bg-white/40 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-white/40 relative overflow-hidden">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="p-2 bg-teal-100 text-teal-600 rounded-xl">
+                                    <i data-lucide="check-square" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="text-base font-bold text-slate-800">Checklist Siaga Bencana</h3>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-4">Persiapkan barang-barang berikut di dalam satu tas darurat untuk keperluan evakuasi mendadak.</p>
+                            
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-3 p-3 bg-white/60 rounded-xl border border-slate-100 shadow-sm transition-colors hover:bg-white">
+                                    <div class="p-1.5 bg-teal-100 text-teal-600 rounded-lg">
+                                        <i data-lucide="folder-open" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-sm font-medium text-slate-700">Dokumen Penting (Ijazah, KK)</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-3 bg-white/60 rounded-xl border border-slate-100 shadow-sm transition-colors hover:bg-white">
+                                    <div class="p-1.5 bg-teal-100 text-teal-600 rounded-lg">
+                                        <i data-lucide="shirt" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-sm font-medium text-slate-700">Pakaian Ganti (3 Hari)</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-3 bg-white/60 rounded-xl border border-slate-100 shadow-sm transition-colors hover:bg-white">
+                                    <div class="p-1.5 bg-teal-100 text-teal-600 rounded-lg">
+                                        <i data-lucide="cross" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-sm font-medium text-slate-700">Kotak P3K & Obat Pribadi</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-3 bg-white/60 rounded-xl border border-slate-100 shadow-sm transition-colors hover:bg-white">
+                                    <div class="p-1.5 bg-teal-100 text-teal-600 rounded-lg">
+                                        <i data-lucide="package" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-sm font-medium text-slate-700">Air Minum & Makanan Instan</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-3 bg-white/60 rounded-xl border border-slate-100 shadow-sm transition-colors hover:bg-white">
+                                    <div class="p-1.5 bg-teal-100 text-teal-600 rounded-lg">
+                                        <i data-lucide="flashlight" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-sm font-medium text-slate-700">Senter & Powerbank</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SEKSI 4: Form Laporan Mandiri Warga -->
+                        <div class="bg-white/40 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-white/40 relative overflow-hidden">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="p-2 bg-indigo-100 text-indigo-600 rounded-xl">
+                                        <i data-lucide="megaphone" class="w-5 h-5"></i>
+                                    </div>
+                                    <h3 class="text-base font-bold text-slate-800">Lapor Kondisi Area</h3>
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-4">Laporkan jika terjadi genangan air abnormal di wilayah Anda.</p>
+                            
+                            <form id="citizenReportForm" class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Lokasi Detail</label>
+                                    <input type="text" id="reportLokasi" required placeholder="Cth: Jl. Bantaran Sungai, RT 02" class="w-full bg-white/60 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Tingkat Genangan</label>
+                                    <select id="reportGenangan" required class="w-full bg-white/60 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none appearance-none">
+                                        <option value="" disabled selected>Pilih Tingkat...</option>
+                                        <option value="Rendah">Rendah (Semata Kaki)</option>
+                                        <option value="Sedang">Sedang (Selutut)</option>
+                                        <option value="Tinggi">Tinggi (Se-pinggang/Lebih)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Catatan Tambahan (Opsional)</label>
+                                    <textarea id="reportDeskripsi" rows="2" placeholder="Cth: Butuh bantuan evakuasi lansia..." class="w-full bg-white/60 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none resize-none"></textarea>
+                                </div>
+                                <button type="submit" id="btnSubmitReport" class="w-full py-2.5 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                                    <i data-lucide="send" class="w-4 h-4"></i> Kirim Laporan Warga
+                                </button>
+                            </form>
+                        </div>
                     </div>
 
                 </div>
@@ -469,6 +657,13 @@
                     document.getElementById('chartSkeleton').classList.add('hidden');
                     document.getElementById('chartContainer').classList.remove('opacity-0');
                     updateChart(logsJson.data);
+
+                    // Update Rata-rata Widget
+                    if (logsJson.data.length > 0) {
+                        const sum = logsJson.data.reduce((a, b) => a + Number(b.nilai_level), 0);
+                        const avg = sum / logsJson.data.length;
+                        document.getElementById('statRataRata').innerText = Math.round(avg) + '%';
+                    }
                 }
             } catch(e) { console.error('Error fetching logs:', e); }
 
@@ -481,8 +676,10 @@
                 
                 if(notifJson.success) {
                     const container = document.getElementById('notificationContainer');
-                    container.innerHTML = ''; // Hapus animasi loading
+                    container.innerHTML = ''; 
                     
+                    document.getElementById('statPeringatan').innerText = notifJson.data.length;
+
                     if(notifJson.data.length === 0) {
                         container.innerHTML = '<p class="text-sm text-slate-500 italic p-4 text-center border border-dashed border-slate-200 rounded-xl">Belum ada riwayat peringatan bahaya tercatat.</p>';
                     } else {
@@ -737,6 +934,8 @@
                 bar.style.background     = 'linear-gradient(90deg,#ef4444,#b91c1c)';
                 document.getElementById('floodStatusCard').className =
                     'bg-red-500/10 backdrop-blur-md rounded-3xl p-6 shadow-[0_0_30px_rgba(239,68,68,0.3)] border border-red-500/30 flex flex-col relative overflow-hidden group transition-all duration-500';
+                
+
             } else if (status === 'SIAGA' || level > 35) {
                 icon.style.background    = 'linear-gradient(135deg,#f59e0b,#d97706)';
                 icon.innerHTML           = '<i data-lucide="alert-circle" class="w-10 h-10"></i>';
@@ -746,6 +945,8 @@
                 bar.style.background     = 'linear-gradient(90deg,#f59e0b,#d97706)';
                 document.getElementById('floodStatusCard').className =
                     'bg-amber-500/10 backdrop-blur-md rounded-3xl p-6 shadow-[0_0_30px_rgba(245,158,11,0.3)] border border-amber-500/30 flex flex-col relative overflow-hidden group transition-all duration-500';
+                
+
             } else {
                 icon.style.background    = 'linear-gradient(135deg,#10b981,#059669)';
                 icon.innerHTML           = '<i data-lucide="check-circle" class="w-10 h-10"></i>';
@@ -755,9 +956,13 @@
                 bar.style.background     = 'linear-gradient(90deg,#10b981,#059669)';
                 document.getElementById('floodStatusCard').className =
                     'bg-white/40 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-white/40 flex flex-col relative overflow-hidden group transition-all duration-500';
+                
+
             }
             lucide.createIcons();
         }
+
+
 
         function bukaModalBerita(id, judul, tanggal, fotoUrl) {
             document.getElementById('modalBeritaJudul').innerText = judul;
@@ -804,7 +1009,55 @@
         document.addEventListener('DOMContentLoaded', () => {
             fetchDashboardData();
             setInterval(fetchDashboardData, 10000);
+
+
+
+            // Handle Report Form Submit
+            const reportForm = document.getElementById('citizenReportForm');
+            if (reportForm) {
+                reportForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    const btn = document.getElementById('btnSubmitReport');
+                    const originalText = btn.innerHTML;
+                    btn.disabled = true;
+                    btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Mengirim...';
+                    lucide.createIcons();
+
+                    const payload = {
+                        lokasi: document.getElementById('reportLokasi').value,
+                        tingkat_genangan: document.getElementById('reportGenangan').value,
+                        deskripsi: document.getElementById('reportDeskripsi').value
+                    };
+
+                    try {
+                        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                        const response = await fetch('/api/reports', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken
+                            },
+                            body: JSON.stringify(payload)
+                        });
+
+                        const resData = await response.json();
+                        if (response.ok && resData.success) {
+                            alert('Laporan berhasil dikirim! Terima kasih atas partisipasi Anda.');
+                            reportForm.reset();
+                        } else {
+                            alert('Gagal mengirim laporan. Silakan coba lagi.');
+                        }
+                    } catch (err) {
+                        alert('Terjadi kesalahan koneksi.');
+                        console.error(err);
+                    } finally {
+                        btn.disabled = false;
+                        btn.innerHTML = originalText;
+                        lucide.createIcons();
+                    }
+                });
+            }
         });
     </script>
 
-</x-app-layout>
+</x-app-layout> 

@@ -10,6 +10,7 @@ use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\Admin\NotificationLogController;
 use App\Http\Controllers\Admin\WaterLevelLogController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\CitizenReportController;
 
 
 Route::get('/', function () {
@@ -24,7 +25,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
         // Tarik data berita untuk preview di admin
         $beritas = \App\Models\Berita::latest()->get(); 
-        return view('admin.dashboard', compact('beritas'));
+        $reports = \App\Models\CitizenReport::with('user')->latest()->take(3)->get();
+        return view('admin.dashboard', compact('beritas', 'reports'));
     })->name('admin.dashboard');
 
     Route::get('/admin/notifications', [NotificationLogController::class, 'index'])->name('admin.notifications.index');
@@ -40,6 +42,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/admin/berita/{id}/edit', [BeritaController::class, 'edit'])->name('admin.berita.edit');
     Route::put('/admin/berita/{id}', [BeritaController::class, 'update'])->name('admin.berita.update');
     Route::delete('/admin/berita/{id}', [BeritaController::class, 'destroy'])->name('admin.berita.destroy');
+
+    Route::post('/admin/reports/{id}/verify', [CitizenReportController::class, 'verify'])->name('admin.reports.verify');
+    Route::get('/admin/citizen-reports', [CitizenReportController::class, 'index'])->name('admin.citizen_reports.index');
 });
 
 // 👇 ROUTE DASHBOARD UTAMA (SMART ROUTE PEMBAGI ROLE) 👇
@@ -73,5 +78,7 @@ Route::get('/api/notifications', [LogController::class, 'notifications'])->name(
 Route::get('/api/weather', [WeatherController::class, 'index'])->name('weather.index');
 Route::get('/api/analytics', [AiAnalyticsController::class, 'index'])->name('analytics.index');
 Route::post('/api/chat', [ChatbotController::class, 'ask'])->name('chat.ask');
+
+Route::post('/api/reports', [CitizenReportController::class, 'store'])->name('reports.store');
 
 require __DIR__.'/auth.php';

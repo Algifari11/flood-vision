@@ -31,7 +31,59 @@
                         </button>
                     </div>
 
-                </div>
+                    <div class="bg-white/70 backdrop-blur-md rounded-3xl p-6 shadow-sm border border-slate-200/60">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 bg-rose-100 text-rose-600 rounded-xl">
+                                    <i data-lucide="megaphone" class="w-4 h-4"></i>
+                                </div>
+                                <h3 class="text-sm font-bold text-slate-800 tracking-tight">Laporan Darurat Baru</h3>
+                            </div>
+                            <a href="{{ route('admin.citizen_reports.index') }}" class="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 transition-colors">
+                                Kelola <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                            </a>
+                        </div>
+
+                        <div class="space-y-3">
+                            @forelse($reports ?? [] as $report)
+                            <div class="bg-slate-50 border border-slate-100 p-3 rounded-2xl relative group">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="text-xs font-bold text-slate-700 truncate w-2/3" title="{{ $report->lokasi }}">{{ $report->lokasi }}</span>
+                                    <span class="text-[10px] text-slate-400 font-medium">{{ $report->created_at->diffForHumans() }}</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex gap-2">
+                                        @if($report->tingkat_genangan == 'Tinggi')
+                                            <span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-red-100 text-red-700 border border-red-200">Tinggi</span>
+                                        @elseif($report->tingkat_genangan == 'Sedang')
+                                            <span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-orange-100 text-orange-700 border border-orange-200">Sedang</span>
+                                        @else
+                                            <span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-blue-100 text-blue-700 border border-blue-200">Rendah</span>
+                                        @endif
+                                        
+                                        <div id="status-report-{{ $report->id }}">
+                                            @if($report->status == 'Pending')
+                                                <span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-amber-100 text-amber-700 border border-amber-200">Pending</span>
+                                            @else
+                                                <span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-100 text-emerald-700 border border-emerald-200"><i data-lucide="check" class="w-2.5 h-2.5 inline"></i> Verif</span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    @if($report->status == 'Pending')
+                                        <button onclick="verifikasiLaporan({{ $report->id }}, this)" class="px-2 py-1 text-[10px] font-bold bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors flex items-center gap-1 shadow-sm">
+                                            <i data-lucide="check" class="w-3 h-3"></i>
+                                        </button>
+                                    @endif
+                                </div>
+                                <p class="text-xs text-slate-500 mt-2 truncate">{{ $report->deskripsi ?: 'Tanpa catatan' }}</p>
+                            </div>
+                            @empty
+                            <div class="text-center py-6 text-slate-400 text-xs">Belum ada laporan terbaru.</div>
+                            @endforelse
+                        </div>
+                    </div>
+                    </div>
 
                 <div class="xl:col-span-2 space-y-8">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -152,40 +204,41 @@
                 <div class="flex overflow-x-auto gap-5 pb-4 snap-x snap-mandatory hide-scrollbar" style="scrollbar-width: none; -ms-overflow-style: none;">
                     
                     @forelse($beritas as $berita)
-                    <div class="min-w-[280px] max-w-[280px] snap-start bg-[#f4f9ff] rounded-3xl overflow-hidden shadow-sm border border-blue-100/50 flex flex-col group cursor-pointer hover:shadow-md transition-shadow">
-                        <div class="relative h-44 overflow-hidden bg-slate-200 flex shrink-0">
+                    <div class="min-w-[280px] max-w-[280px] snap-start bg-white/40 backdrop-blur-md rounded-3xl overflow-hidden shadow-sm border border-white/40 flex flex-col group cursor-pointer hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="relative h-44 overflow-hidden bg-slate-200/50 flex shrink-0">
                             @if($berita->foto)
-                                <img src="{{ asset('storage/' . $berita->foto) }}" alt="Foto Berita" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <img src="{{ asset('storage/' . $berita->foto) }}" alt="Foto Berita" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             @else
                                 <div class="w-full h-full flex items-center justify-center text-slate-400">
-                                    <i data-lucide="image" class="w-10 h-10"></i>
+                                    <i data-lucide="image" class="w-10 h-10 opacity-50"></i>
                                 </div>
                             @endif
                             
-                            <div class="absolute top-3 left-3 bg-[#2a3449] text-white text-[11px] font-semibold px-3 py-1.5 rounded-full shadow-sm backdrop-blur-sm bg-opacity-90">
+                            <div class="absolute top-3 left-3 bg-slate-900/70 text-white text-[11px] font-semibold px-3 py-1.5 rounded-full shadow-sm backdrop-blur-md">
                                 {{ $berita->created_at->format('d M Y') }}
                             </div>
                         </div>
-                        <div class="p-5 flex flex-col flex-grow justify-between bg-[#f4f9ff]">
-                            <h4 class="font-bold text-slate-800 text-[15px] leading-snug line-clamp-3 mb-4">
+                        <div class="p-5 flex flex-col flex-grow justify-between relative z-10">
+                            <h4 class="font-bold text-slate-800 text-[15px] leading-snug line-clamp-3 mb-4 group-hover:text-blue-600 transition-colors">
                                 {{ $berita->judul }}
                             </h4>
                             
                             <div id="konten-berita-{{ $berita->id }}" class="hidden">{{ $berita->konten }}</div>
                             <button onclick="bukaModalBerita('{{ $berita->id }}', '{{ addslashes($berita->judul) }}', '{{ $berita->created_at->format('d M Y') }}', '{{ $berita->foto ? asset('storage/'.$berita->foto) : '' }}')" class="text-amber-500 font-bold text-sm flex items-center justify-end gap-1.5 hover:text-amber-600 transition-colors w-full text-right mt-2 focus:outline-none">
-                                Selengkapnya <i data-lucide="arrow-right-circle" class="w-4 h-4"></i>
+                                Selengkapnya <i data-lucide="arrow-right-circle" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                             </button>
                         </div>
                     </div>
                     @empty
-                    <div class="w-full bg-slate-50 border border-dashed border-slate-200 rounded-3xl p-8 text-center flex flex-col items-center justify-center">
+                    <div class="w-full bg-white/40 backdrop-blur-md border border-dashed border-slate-300 rounded-3xl p-8 text-center flex flex-col items-center justify-center">
                         <i data-lucide="newspaper" class="w-10 h-10 text-slate-300 mb-3"></i>
-                        <p class="text-slate-500 font-medium text-sm">Belum ada berita. Tambahkan berita di menu "Kelola Berita".</p>
+                        <p class="text-slate-500 font-medium text-sm">Belum ada berita dirilis oleh Admin Sistem Mitigasi Banjir Cerdas.</p>
                     </div>
                     @endforelse
 
                 </div>
             </div>
+
             </div>
     </div>
 
@@ -296,7 +349,6 @@
     <script async src="https://docs.opencv.org/4.8.0/opencv.js" onload="onOpenCvReady();"></script>
     
     <script>
-        let waterChart;
         let globalContext = "Level: --, Status: --, Risk Score: --";
 
         async function fetchDashboardData() {
@@ -364,74 +416,142 @@
         }
 
         function updateChart(data) {
-            const labels = data.map(item => {
-                const date = new Date(item.created_at);
+            // 1. Format label diubah menjadi HH:MM:SS persis seperti di User Dashboard
+            const labels = data.map(log => {
+                const date = new Date(log.created_at);
                 const hh = String(date.getHours()).padStart(2, '0');
                 const mm = String(date.getMinutes()).padStart(2, '0');
                 const ss = String(date.getSeconds()).padStart(2, '0');
                 return `${hh}:${mm}:${ss}`;
             });
-            const values = data.map(item => item.nilai_level);
+            const values = data.map(log => log.nilai_level);
 
-            if(waterChart) {
-                waterChart.data.labels = labels;
-                waterChart.data.datasets[0].data = values;
-                waterChart.update();
+            const existingChart = Chart.getChart('waterChart');
+
+            if(existingChart) {
+                existingChart.data.labels = labels;
+                existingChart.data.datasets[0].data = values;
+                existingChart.update('none'); 
             } else {
                 const ctx = document.getElementById('waterChart').getContext('2d');
                 
-                // Create Gradient
-                let gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                gradient.addColorStop(0, 'rgba(37, 99, 235, 0.2)'); // blue-600
+                // 2. Warna gradient diubah ke Biru (#2563eb)
+                const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                gradient.addColorStop(0, 'rgba(37, 99, 235, 0.2)');
                 gradient.addColorStop(1, 'rgba(37, 99, 235, 0)');
 
-                waterChart = new Chart(ctx, {
+                window.waterChart = new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: labels,
                         datasets: [{
                             label: 'Level Air (%)',
                             data: values,
-                            borderColor: '#2563eb', // blue-600
+                            borderColor: '#2563eb', // Line Biru
                             backgroundColor: gradient,
                             borderWidth: 3,
-                            fill: true,
-                            tension: 0.4,
                             pointBackgroundColor: '#ffffff',
-                            pointBorderColor: '#2563eb',
+                            pointBorderColor: '#2563eb', // Titik Biru
                             pointBorderWidth: 2,
                             pointRadius: 4,
-                            pointHoverRadius: 6
+                            pointHoverRadius: 6,
+                            fill: true,
+                            tension: 0.4 
                         }]
                     },
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        interaction: {
-                            mode: 'index',
-                            intersect: false,
-                        },
-                        plugins: { 
+                        plugins: {
                             legend: { display: false },
                             tooltip: {
-                                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                backgroundColor: 'rgba(255, 255, 255, 0.9)', // Tooltip terang
                                 titleColor: '#1e293b',
                                 bodyColor: '#1e293b',
                                 borderColor: '#e2e8f0',
                                 borderWidth: 1,
                                 padding: 12,
+                                cornerRadius: 8,
                                 displayColors: false,
                                 callbacks: {
                                     label: function(context) {
-                                        return context.parsed.y + '%';
+                                        return context.parsed.y + '% (Terukur)';
                                     }
                                 }
                             }
-                        }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.04)',
+                                    drawBorder: false,
+                                },
+                                ticks: {
+                                    font: { family: "'Figtree', sans-serif", size: 11 },
+                                    color: '#64748b',
+                                    stepSize: 10 // 3. Set kelipatan 10, 20, 30... dan hilangkan fungsi penambah "%"
+                                }
+                            },
+                            x: {
+                                grid: { display: false, drawBorder: false },
+                                ticks: {
+                                    font: { family: "'Figtree', sans-serif", size: 11 },
+                                    color: '#64748b',
+                                    // 4. Matikan autoSkip dan miringkan teks label
+                                    autoSkip: false,
+                                    maxRotation: 45,
+                                    minRotation: 45
+                                }
+                            }
+                        },
+                        interaction: {
+                            intersect: false,
+                            mode: 'index',
+                        },
                     }
                 });
             }
         }
+
+        async function verifikasiLaporan(id, btn) {
+            btn.innerHTML = '<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Proses...';
+            lucide.createIcons();
+            
+            try {
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                const response = await fetch(`/admin/reports/${id}/verify`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                
+                const resData = await response.json();
+                if (response.ok && resData.success) {
+                    const statusTd = document.getElementById(`status-report-${id}`);
+                    statusTd.innerHTML = '<span class="px-2.5 py-1 text-xs font-bold rounded-lg bg-emerald-100 text-emerald-700 border border-emerald-200"><i data-lucide="check-circle" class="w-3 h-3 inline"></i> Terverifikasi</span>';
+                    btn.remove();
+                    lucide.createIcons();
+                } else {
+                    alert('Gagal memverifikasi laporan.');
+                    btn.innerHTML = '<i data-lucide="check" class="w-3 h-3"></i> Verifikasi';
+                    lucide.createIcons();
+                }
+            } catch (e) {
+                console.error(e);
+                alert('Kesalahan jaringan.');
+                btn.innerHTML = '<i data-lucide="check" class="w-3 h-3"></i> Verifikasi';
+                lucide.createIcons();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchDashboardData();
+            setInterval(fetchDashboardData, 10000);
+        });
 
         // Chatbot Logic
         function toggleChat() {

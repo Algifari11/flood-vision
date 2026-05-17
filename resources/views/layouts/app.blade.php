@@ -18,7 +18,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased" style="font-family: 'Plus Jakarta Sans', sans-serif;">
-        <div class="min-h-screen bg-slate-50">
+        <div class="min-h-screen bg-slate-50 flex flex-col">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -31,9 +31,14 @@
             @endif
 
             <!-- Page Content -->
-            <main>
+            <main class="flex-grow pb-12">
                 {{ $slot }}
             </main>
+
+            <!-- Global Footer -->
+            <footer class="relative z-10 border-t border-slate-200/60 bg-white/40 backdrop-blur-md py-8 text-center mt-auto">
+                <p class="text-slate-500 text-sm font-medium">&copy; 2026 Flood-Vision System &mdash; Sistem Mitigasi Banjir Cerdas.</p>
+            </footer>
         </div>
     </body>
 </html>

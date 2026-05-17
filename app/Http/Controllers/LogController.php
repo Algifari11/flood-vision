@@ -11,11 +11,11 @@ class LogController extends Controller
 {
     public function index()
     {
-        // Get the latest 20 logs, then sort them chronologically (oldest to newest)
-        $logs = LogDeteksi::latest()->take(20)->get()->reverse()->values();
+        // Ambil 15 data log terakhir, lalu urutkan kronologis (terlama ke terbaru)
+        $logs = LogDeteksi::latest()->take(15)->get()->reverse()->values();
 
         return response()->json([
-            'message' => 'Success',
+            'success' => true,
             'data' => $logs
         ]);
     }

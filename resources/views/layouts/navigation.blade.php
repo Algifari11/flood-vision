@@ -28,6 +28,10 @@
                         <x-nav-link :href="route('admin.berita.index')" :active="request()->routeIs('admin.berita.*')" class="text-slate-600 font-semibold hover:text-blue-600 transition-colors">
                             {{ __('Kelola Berita') }}
                         </x-nav-link>
+
+                        <x-nav-link :href="route('admin.citizen_reports.index')" :active="request()->routeIs('admin.citizen_reports.*')" class="text-slate-600 font-semibold hover:text-blue-600 transition-colors">
+                            {{ __('Laporan Warga') }}
+                        </x-nav-link>
                     @endif
                 </div>
             </div>
@@ -95,6 +99,10 @@
 
                 <x-responsive-nav-link :href="route('admin.berita.index')" :active="request()->routeIs('admin.berita.*')">
                     {{ __('Kelola Berita') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('admin.citizen_reports.index')" :active="request()->routeIs('admin.citizen_reports.*')">
+                    {{ __('Laporan Warga') }}
                 </x-responsive-nav-link>
             @endif
         </div>
