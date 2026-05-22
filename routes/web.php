@@ -12,16 +12,15 @@ use App\Http\Controllers\Admin\WaterLevelLogController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\CitizenReportController;
 
-
+// 1. Halaman Beranda / Welcome Publik
 Route::get('/', function () {
     $beritas = \App\Models\Berita::latest()->get();
     return view('welcome', compact('beritas'));
 });
 
-// Admin routes
+// 2. Kelompok Rute Khusus Admin (Proteksi Middleware Auth, Verified, & Role Admin)
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     
-    // 👇 INI YANG KITA UBAH AGAR ADMIN BISA LIHAT BERITA 👇
     Route::get('/admin/dashboard', function () {
         // Tarik data berita untuk preview di admin
         $beritas = \App\Models\Berita::latest()->get(); 
@@ -36,40 +35,39 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/admin/water-logs/create', [WaterLevelLogController::class, 'create'])->name('admin.water_logs.create');
     Route::post('/admin/water-logs', [WaterLevelLogController::class, 'store'])->name('admin.water_logs.store');
 
-    // Tambahan Rute CRUD Berita Admin
+    // CRUD Berita Admin
     Route::get('/admin/berita', [BeritaController::class, 'index'])->name('admin.berita.index');
     Route::post('/admin/berita', [BeritaController::class, 'store'])->name('admin.berita.store');
     Route::get('/admin/berita/{id}/edit', [BeritaController::class, 'edit'])->name('admin.berita.edit');
     Route::put('/admin/berita/{id}', [BeritaController::class, 'update'])->name('admin.berita.update');
     Route::delete('/admin/berita/{id}', [BeritaController::class, 'destroy'])->name('admin.berita.destroy');
 
+    // CRUD Laporan Warga di Sisi Admin
     Route::post('/admin/reports/{id}/verify', [CitizenReportController::class, 'verify'])->name('admin.reports.verify');
     Route::get('/admin/citizen-reports', [CitizenReportController::class, 'index'])->name('admin.citizen_reports.index');
 });
 
-// 👇 ROUTE DASHBOARD UTAMA (SMART ROUTE PEMBAGI ROLE) 👇
+// 3. Smart Route Pembagi Dashboard Utama Berdasarkan Role
 Route::get('/dashboard', function () {
-    // 1. Cek apakah yang login adalah admin
+    // Cek apakah yang login adalah admin
     if (auth()->user()->role === 'admin') {
         // Jika ya, tendang otomatis ke rute admin.dashboard
         return redirect()->route('admin.dashboard');
     }
     
-    // 2. Jika bukan admin (warga biasa), jalankan seperti biasa
-    // Ambil semua data berita dari database urut dari yang paling baru
+    // Jika bukan admin (warga biasa), tampilkan dashboard user beserta data berita
     $beritas = \App\Models\Berita::latest()->get();
-    
-    // Kita arahkan ke folder user, file dashboard, sambil membawa variabel $beritas
     return view('user.dashboard', compact('beritas')); 
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// 4. Kelompok Rute Manajemen Profil Pengguna (Wajib Login)
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route for API
+// 5. Kelompok Rute Jalur API & Sistem Integrasi Perangkat Cerdas
 Route::get('/api/logs', [LogController::class, 'index'])->name('logs.index');
 Route::post('/api/logs', [LogController::class, 'store'])->name('logs.store');
 
@@ -77,8 +75,11 @@ Route::get('/api/notifications', [LogController::class, 'notifications'])->name(
 
 Route::get('/api/weather', [WeatherController::class, 'index'])->name('weather.index');
 Route::get('/api/analytics', [AiAnalyticsController::class, 'index'])->name('analytics.index');
-Route::post('/api/chat', [ChatbotController::class, 'ask'])->name('chat.ask');
+
+// RUTE CHATBOT REVISI (Mendukung GET/POST Publik untuk Koneksi Groq Llama 3.3)
+Route::match(['get', 'post'], '/api/chat', [ChatbotController::class, 'ask'])->name('chat.ask');
 
 Route::post('/api/reports', [CitizenReportController::class, 'store'])->name('reports.store');
 
+// 6. Jalur Otentikasi Bawaan Laravel Breeze
 require __DIR__.'/auth.php';

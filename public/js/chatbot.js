@@ -29,16 +29,17 @@ async function sendChatMessage(e) {
 
     const chatMessages = document.getElementById('chatMessages');
     
+    // User bubble disesuaikan agar lebih estetik
     const userHtml = `
-        <div class="flex gap-3 flex-row-reverse">
-            <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center shrink-0">
-                <i data-lucide="user" class="w-4 h-4 text-slate-500"></i>
-            </div>
-            <div class="bg-blue-600 p-3.5 rounded-2xl rounded-tr-none shadow-sm text-sm text-white font-medium">
-                ${message}
-            </div>
-        </div>
-    `;
+<div class="flex gap-3 flex-row-reverse animate-[slideDown_0.2s_ease-out]">
+    <div class="w-8 h-8 rounded-xl bg-slate-200 border border-slate-300/60 flex items-center justify-center shrink-0 shadow-sm">
+        <i data-lucide="user" class="w-4 h-4 text-slate-600"></i>
+    </div>
+    <div class="bg-gradient-to-br from-blue-600 to-indigo-600 p-3.5 rounded-2xl rounded-tr-none shadow-sm text-sm text-white font-medium max-w-[85%] leading-relaxed">
+        ${message}
+    </div>
+</div>`;
+
     chatMessages.insertAdjacentHTML('beforeend', userHtml);
     input.value = '';
     if(typeof lucide !== 'undefined') lucide.createIcons();
@@ -46,15 +47,15 @@ async function sendChatMessage(e) {
 
     const loadingId = 'loading-' + Date.now();
     const loadingHtml = `
-        <div id="${loadingId}" class="flex gap-3">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center shrink-0 shadow-sm animate-pulse">
-                <i data-lucide="sparkles" class="w-4 h-4 text-white"></i>
-            </div>
-            <div class="bg-white p-3.5 rounded-2xl rounded-tl-none shadow-sm text-sm text-slate-500 flex items-center gap-2">
-                <i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Mengetik balasan...
-            </div>
-        </div>
-    `;
+<div id="${loadingId}" class="flex gap-3 max-w-[85%]">
+    <div class="w-8 h-8 rounded-xl bg-white border border-slate-200/80 text-blue-600 flex items-center justify-center shrink-0 shadow-sm animate-pulse">
+        <i data-lucide="sparkles" class="w-4 h-4"></i>
+    </div>
+    <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-slate-200/60 shadow-sm text-sm text-slate-400 flex items-center gap-2 font-medium">
+        <i data-lucide="loader-2" class="w-4 h-4 animate-spin text-blue-600"></i> Mengetik analisa...
+    </div>
+</div>`;
+
     chatMessages.insertAdjacentHTML('beforeend', loadingHtml);
     if(typeof lucide !== 'undefined') lucide.createIcons();
     chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -75,16 +76,15 @@ async function sendChatMessage(e) {
         const loader = document.getElementById(loadingId);
         if(loader) loader.remove();
 
+        // Diperbaiki: Kode HTML dirapatkan ke kiri mentok agar 'whitespace-pre-wrap' tidak menangkap spasi tab editor
         const botHtml = `
-            <div class="flex gap-3">
-                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center shrink-0 shadow-sm">
-                    <i data-lucide="sparkles" class="w-4 h-4 text-white"></i>
-                </div>
-                <div class="bg-white p-3.5 rounded-2xl rounded-tl-none shadow-sm text-sm text-slate-700 border border-slate-100 leading-relaxed whitespace-pre-wrap">
-                    ${data.reply}
-                </div>
-            </div>
-        `;
+<div class="flex gap-3 max-w-[85%] animate-[slideDown_0.2s_ease-out]">
+    <div class="w-8 h-8 rounded-xl bg-white border border-slate-200/80 text-blue-600 flex items-center justify-center shrink-0 shadow-sm">
+        <i data-lucide="sparkles" class="w-4 h-4"></i>
+    </div>
+    <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-slate-200/60 shadow-sm text-sm text-slate-700 leading-relaxed font-medium whitespace-pre-wrap">${data.reply.trim()}</div>
+</div>`;
+
         chatMessages.insertAdjacentHTML('beforeend', botHtml);
         if(typeof lucide !== 'undefined') lucide.createIcons();
         chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -93,12 +93,12 @@ async function sendChatMessage(e) {
         const loader = document.getElementById(loadingId);
         if(loader) loader.remove();
         chatMessages.insertAdjacentHTML('beforeend', `
-            <div class="flex gap-3">
-                <div class="bg-red-50 text-red-600 p-3 rounded-xl text-sm border border-red-100">
-                    Gagal terhubung ke server AI.
-                </div>
-            </div>
-        `);
+<div class="flex gap-3 max-w-[85%]">
+    <div class="bg-red-50 text-red-600 p-3.5 rounded-2xl border border-red-100 text-sm font-medium flex items-center gap-2 shadow-sm">
+        <i data-lucide="alert-circle" class="w-4 h-4"></i> Gagal terhubung ke server AI.
+    </div>
+</div>`);
+        if(typeof lucide !== 'undefined') lucide.createIcons();
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 }

@@ -10,52 +10,41 @@ class ChatbotController extends Controller
     public function ask(Request $request)
     {
         $validated = $request->validate([
-            'prompt' => 'required|string',
-            'context' => 'required|string'
+            'message' => 'required|string',
+            'context' => 'nullable|string'
         ]);
 
-        $userPrompt = $validated['prompt'];
-        $context = $validated['context'];
+        $userPrompt = $validated['message'];
+        $context = $validated['context'] ?? "Kondisi saat ini terukur aman dan stabil di bantaran sungai.";
 
-        $apiKey = env('GEMINI_API_KEY');
+        // Mengambil key Groq yang baru saja kamu masukkan ke .env
+        $apiKey = env('GROQ_API_KEY');
 
-        $systemPrompt = "Anda adalah Flood Vision Assistant - Sistem Mitigasi Banjir Cerdas. Jawablah pertanyaan pengguna secara ilmiah, profesional, dan fokus pada pengamanan debit air sungai menggunakan teknologi computer vision. Berikut adalah konteks real-time saat ini: " . $context;
-        $fullPrompt = $systemPrompt . "\n\nPertanyaan: " . $userPrompt;
+        $systemInstruction = "Anda adalah Flood Vision Assistant - Sistem Mitigasi Banjir Cerdas. Jawablah pertanyaan pengguna secara ilmiah, ramah, profesional, dan fokus pada teknologi computer vision, level air sungai, serta mitigasi bencana. Gunakan bahasa Indonesia yang baik, jelas, dan solutif. Gunakan konteks real-time ini sebagai acuan: " . $context;
 
-        // Fungsi pembantu untuk generate jawaban cadangan (Lokal) jika Google API mati/kuota habis
-        $getFallbackReply = function($context) {
-            $reply = "Berdasarkan analisis visual dari Sistem Mitigasi Banjir Cerdas: Saat ini debit air sungai cukup krusial. Kami merekomendasikan Anda untuk secara intensif memantau grafik analitik, menyiapkan dokumen dan tas darurat, serta mematuhi arahan BPBD setempat.";
-            if (stripos($context, 'AMAN') !== false) {
-                $reply = "Berdasarkan pemantauan computer vision dari Sistem Mitigasi Banjir Cerdas: Kondisi debit air saat ini terukur aman dan stabil. Anda dapat beraktivitas seperti biasa dengan tetap menjadikan sistem peringatan dini ini sebagai referensi utama Anda.";
-            }
-            return $reply;
-        };
-
-        // Jika API Key di .env kosong, langsung pakai cadangan
         if (empty($apiKey)) {
             return response()->json([
                 'success' => true,
-                'reply' => $getFallbackReply($context)
+                'reply' => "Sistem lokal: GROQ_API_KEY belum terkonfigurasi dengan benar di file .env Anda."
             ]);
         }
 
         try {
-            $response = Http::withHeaders([
-                'Content-Type' => 'application/json'
-            ])->post("https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=" . $apiKey, [
-                'contents' => [
-                    [
-                        'parts' => [
-                            ['text' => $fullPrompt]
-                        ]
-                    ]
-                ]
-            ]);
+            // Menembak Endpoint Resmi Groq Cloud Chat Completions
+            $response = Http::withoutVerifying()
+                ->withToken($apiKey)
+                ->post("https://api.groq.com/openai/v1/chat/completions", [
+                    'model' => 'llama-3.3-70b-versatile', // Memanggil Llama 3.3 70B yang cerdas & gratis
+                    'messages' => [
+                        ['role' => 'system', 'content' => $systemInstruction],
+                        ['role' => 'user', 'content' => $userPrompt]
+                    ],
+                    'temperature' => 0.7
+                ]);
 
-            // Jika respons dari Google sukses dan berjalan lancar
             if ($response->successful()) {
                 $data = $response->json();
-                $replyText = $data['candidates'][0]['content']['parts'][0]['text'] ?? null;
+                $replyText = $data['choices'][0]['message']['content'] ?? null;
                 
                 if ($replyText) {
                     return response()->json([
@@ -65,18 +54,15 @@ class ChatbotController extends Controller
                 }
             }
 
-            // 👇 PENYELAMAT SAAT DEMO 👇
-            // Jika kuota habis (Error 429/500), jangan crash! Alihkan langsung ke cadangan lokal secara halus
             return response()->json([
                 'success' => true,
-                'reply' => $getFallbackReply($context)
+                'reply' => "Groq API Error (" . $response->status() . "): " . $response->body()
             ]);
 
         } catch (\Exception $e) {
-            // Jika server local macet atau internet putus, tetap keluarkan jawaban simulasi agar tidak eror merah
             return response()->json([
                 'success' => true,
-                'reply' => $getFallbackReply($context)
+                'reply' => "Gagal memproses AI via Groq. Error: " . $e->getMessage()
             ]);
         }
     }
