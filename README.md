@@ -90,12 +90,15 @@ DB_DATABASE=flood_vision_db
 DB_USERNAME=root
 DB_PASSWORD=
 
-# Konfigurasi Integrasi Telegram Broadcast (WITA/Asia/Makassar)
-TELEGRAM_BOT_TOKEN="your_telegram_bot_token_here"
-TELEGRAM_CHAT_ID="your_telegram_chat_channel_id_here"
+# Kredensial Integrasi Bot Peringatan Dini Telegram (WITA / Asia/Makassar)
+TELEGRAM_CHAT_ID=
+TELEGRAM_BOT_TOKEN=
 
-# Konfigurasi Alamat API YOLOv26 FastAPI Inference Backend
-FASTAPI_AI_URL="http://127.0.0.1:8000"
+# API Key Core Integrasi Chatbot AI Mitigasi
+GROQ_API_KEY=
+
+# Alamat Endpoint API Backend Python FastAPI YOLOv26
+FASTAPI_AI_URL="[http://127.0.0.1:8001]"
 ```
 
 ### Langkah 4: Enkripsi Kunci & Migrasi Skema Database
