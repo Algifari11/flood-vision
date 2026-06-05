@@ -1,9 +1,8 @@
 <x-guest-layout>
-    @section('title', 'Login Admin')
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <div class="text-center mb-8">
-        <h2 class="text-2xl font-bold text-slate-800 mb-2">Selamat Datang! 👋</h2>
+        <h2 class="text-2xl font-bold text-slate-800 mb-2">Selamat Datang! </h2>
         <p class="text-sm font-semibold text-rose-500">Khusus Hak Akses Admin Command Center.</p>
     </div>
 
