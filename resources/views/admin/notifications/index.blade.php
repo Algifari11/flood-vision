@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('title', 'Log Notifikasi')
     <div class="py-12 bg-slate-50 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             
@@ -117,7 +118,7 @@
                                             Pemantauan otomatis model YOLO & OpenCV berjalan dengan normal. Kondisi aliran sungai saat ini terpantau aman di bawah ambang batas.
                                         @else
                                             🚨 <span class="font-extrabold text-rose-600">[DARURAT STATUS {{ $currentStatus }} - WARNING BANJIR]</span>
-                                            Sistem Flood Vision mendeteksi kondisi darurat pada lokasi pemantauan aktif.
+                                            Sistem Mori Nalove mendeteksi kondisi darurat pada lokasi pemantauan aktif.
                                         @endif
                                         • Nama Sungai: {{ $log->nama_sungai }}
                                         • Waktu Deteksi: {{ \Carbon\Carbon::parse($log->waktu_rekaman)->format('H:i') }} WITA

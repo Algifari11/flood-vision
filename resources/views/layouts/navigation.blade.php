@@ -1,10 +1,8 @@
 @if(auth()->check() && auth()->user()->role === 'admin')
     <aside id="sidebarAdmin" class="-translate-x-full fixed z-50 md:translate-x-0 md:relative w-64 min-h-screen bg-white text-slate-700 border-r border-slate-200 transition-all duration-300 flex flex-col shrink-0 shadow-sm">
-        <div id="btnToggleSidebar" class="h-16 flex items-center px-5 border-b border-slate-100 shrink-0 gap-3 cursor-pointer hover:bg-slate-50 transition-colors">
-            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-md shrink-0">
-                <i class="fa-solid fa-water text-lg"></i>
-            </div>
-            <span class="font-extrabold text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 tracking-tight sidebar-hide truncate transition-opacity duration-300">Flood Vision</span>
+        <div id="btnToggleSidebar" class="h-16 flex items-center justify-center md:justify-start px-5 border-b border-slate-100 shrink-0 gap-3 cursor-pointer hover:bg-slate-50 transition-colors">
+            <img src="{{ asset('img/logo-mori-nalove.png') }}" alt="Mori Nalove Logo" class="h-10 w-auto object-contain shrink-0">
+            <span class="font-extrabold text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 tracking-tight sidebar-hide truncate transition-opacity duration-300">Mori Nalove</span>
         </div>
 
         <div class="flex-grow py-6 px-4 space-y-1.5 overflow-y-auto hide-scrollbar">
@@ -75,59 +73,4 @@
         </div>
     </aside>
 
-@else
-    <aside id="sidebarUser" class="-translate-x-full fixed z-50 md:translate-x-0 md:relative w-64 min-h-screen bg-white text-slate-700 border-r border-slate-200 transition-all duration-300 flex flex-col shrink-0 shadow-sm">
-        
-        <div id="btnToggleSidebarUser" class="h-16 flex items-center px-5 border-b border-slate-100 shrink-0 gap-3 cursor-pointer hover:bg-slate-50 transition-colors">
-            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-md shrink-0">
-                <i class="fa-solid fa-water text-lg"></i>
-            </div>
-            <span class="font-extrabold text-lg bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 tracking-tight sidebar-hide truncate transition-opacity duration-300">Flood Vision</span>
-        </div>
-
-        <div class="flex-grow py-6 px-4 space-y-1.5 overflow-y-auto hide-scrollbar">
-            <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-3.5 py-3 rounded-xl font-bold text-sm transition-all duration-200 {{ request()->routeIs('dashboard') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/10' : 'hover:bg-slate-50 hover:text-blue-600 text-slate-500' }}">
-                <i class="fa-solid fa-house text-lg w-5 text-center shrink-0"></i>
-                <span class="sidebar-hide truncate transition-opacity duration-300">Dashboard</span>
-            </a>
-        </div>
-
-        <div class="p-4 pt-0 mt-auto shrink-0">
-            <div x-data="{ open: false }" class="relative">
-                <div x-show="open" @click.away="open = false" 
-                     x-transition:enter="transition ease-out duration-200" 
-                     x-transition:enter-start="opacity-0 translate-y-2 scale-95" 
-                     x-transition:enter-end="opacity-100 translate-y-0 scale-100" 
-                     x-transition:leave="transition ease-in duration-75" 
-                     x-transition:leave-start="opacity-100 translate-y-0 scale-100" 
-                     x-transition:leave-end="opacity-0 translate-y-2 scale-95"
-                     class="absolute bottom-full left-0 right-0 mb-3 bg-white border border-slate-200 rounded-2xl p-1.5 shadow-2xl z-50"
-                     style="display: none;">
-                    <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-xs hover:bg-slate-50 text-slate-700 hover:text-blue-600 transition-all duration-200">
-                        <i data-lucide="user" class="w-4 h-4 shrink-0 text-slate-400"></i>
-                        <span>Profil Saya</span>
-                    </a>
-                    <form method="POST" action="{{ route('logout') }}" class="m-0">
-                        @csrf
-                        <button type="submit" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold text-xs hover:bg-red-50 text-red-600 hover:text-red-700 transition-all duration-200 text-left">
-                            <i data-lucide="log-out" class="w-4 h-4 shrink-0 text-red-400"></i>
-                            <span>Keluar</span>
-                        </button>
-                    </form>
-                </div>
-                <button @click="open = !open" class="w-full flex items-center gap-3 p-3.5 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-all duration-200 focus:outline-none text-left justify-center shadow-md">
-                    <div class="w-9 h-9 bg-blue-600 text-white rounded-xl flex items-center justify-center text-sm font-black shrink-0 shadow-md mx-auto">
-                        {{ substr(Auth::user()->name, 0, 1) }}
-                    </div>
-                    <div class="min-w-0 flex-grow menu-label sidebar-hide transition-opacity duration-300 hidden md:flex items-center justify-between">
-                        <div class="min-w-0 pr-2">
-                            <p class="text-xs font-black text-slate-800 truncate">{{ Auth::user()->name }}</p>
-                            <p class="text-[10px] font-bold text-slate-400 truncate uppercase tracking-wider">Warga / User</p>
-                        </div>
-                        <i data-lucide="chevron-up" class="w-4 h-4 text-slate-400 shrink-0"></i>
-                    </div>
-                </button>
-            </div>
-        </div>
-    </aside>
 @endif

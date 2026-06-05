@@ -1,9 +1,10 @@
 <x-guest-layout>
+    @section('title', 'Login Admin')
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <div class="text-center mb-8">
         <h2 class="text-2xl font-bold text-slate-800 mb-2">Selamat Datang! 👋</h2>
-        <p class="text-sm text-slate-500">Masuk untuk mengakses Flood-Vision.</p>
+        <p class="text-sm font-semibold text-rose-500">Khusus Hak Akses Admin Command Center.</p>
     </div>
 
     <form method="POST" action="{{ route('login') }}" class="space-y-5">
@@ -44,11 +45,6 @@
             </button>
         </div>
         
-        @if (Route::has('register'))
-        <p class="text-center text-sm text-slate-500 mt-6">
-            Belum mendaftarkan akun? 
-            <a href="{{ route('register') }}" class="text-blue-600 hover:text-blue-700 font-bold transition-colors">Daftar di sini</a>
-        </p>
-        @endif
+
     </form>
 </x-guest-layout>

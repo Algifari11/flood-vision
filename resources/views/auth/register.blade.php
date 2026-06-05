@@ -1,7 +1,8 @@
 <x-guest-layout>
+    @section('title', 'Daftar Admin')
     <div class="text-center mb-8">
         <h2 class="text-2xl font-bold text-slate-800 mb-2">Buat Akun Baru</h2>
-        <p class="text-sm text-slate-500">Bergabunglah dengan sistem mitigasi Flood-Vision.</p>
+        <p class="text-sm text-slate-500">Bergabunglah dengan sistem monitoring Mori Nalove.</p>
     </div>
 
     <form method="POST" action="{{ route('register') }}" class="space-y-5">

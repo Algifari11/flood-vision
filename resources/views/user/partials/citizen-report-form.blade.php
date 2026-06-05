@@ -23,7 +23,7 @@
     </div>
     <p class="text-xs text-slate-500 mb-4 line-clamp-2">Laporkan jika terjadi genangan air abnormal di wilayah Anda.</p>
     
-    <form action="{{ route('reports.store') }}" method="POST" class="space-y-4">
+    <form action="{{ route('reports.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf 
 
         <div>
@@ -57,6 +57,16 @@
         <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Catatan Tambahan (Opsional)</label>
             <textarea name="deskripsi" rows="2" placeholder="Cth: Air sudah masuk ke pemukiman di Desa Oluboju, butuh bantuan evakuasi lansia..." class="w-full bg-white/60 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none resize-none"></textarea>
+        </div>
+        
+        <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1.5">
+                <i class="fa-solid fa-camera text-slate-400"></i> Foto Bukti Kondisi (Wajib)
+            </label>
+            <input type="file" name="foto_bukti" accept="image/*" required class="w-full bg-white/60 border border-slate-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+            @error('foto_bukti')
+                <p class="text-red-500 text-[10px] mt-1 font-semibold">{{ $message }}</p>
+            @enderror
         </div>
         
         <button type="submit" onclick="this.innerHTML='<i data-lucide=\'loader-2\' class=\'w-4 h-4 animate-spin\'></i> Mengirim...'; this.classList.add('opacity-75', 'cursor-wait'); lucide.createIcons();" class="w-full py-2.5 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2">

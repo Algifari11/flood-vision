@@ -39,7 +39,7 @@
         @empty
         <div class="w-full bg-white/40 backdrop-blur-md border border-dashed border-slate-300 rounded-3xl p-8 text-center flex flex-col items-center justify-center">
             <i data-lucide="newspaper" class="w-10 h-10 text-slate-300 mb-3"></i>
-            <p class="text-slate-500 font-medium text-sm">Belum ada berita dirilis oleh Admin Sistem Mitigasi Banjir Cerdas.</p>
+            <p class="text-slate-500 font-medium text-sm">Belum ada berita dirilis oleh Admin Sistem Monitoring Dan Peringatan Dini.</p>
         </div>
         @endforelse
 

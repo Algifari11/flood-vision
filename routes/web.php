@@ -13,11 +13,8 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\CitizenReportController;
 use App\Http\Controllers\VideoUploadController;
 
-// 1. Halaman Beranda / Welcome Publik
-Route::get('/', function () {
-    $beritas = \App\Models\Berita::latest()->get();
-    return view('welcome', compact('beritas'));
-});
+// 1. Halaman Beranda / Dashboard Publik (Tanpa Autentikasi)
+Route::get('/', [App\Http\Controllers\UserDashboardController::class, 'index'])->name('user.dashboard');
 
 // 2. Kelompok Rute Khusus Admin (Proteksi Middleware Auth, Verified, & Role Admin)
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
@@ -52,24 +49,24 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 
     // CRUD Laporan Warga di Sisi Admin
     Route::post('/admin/reports/{id}/verify', [CitizenReportController::class, 'verify'])->name('admin.reports.verify');
+    Route::delete('/admin/reports/{id}', [CitizenReportController::class, 'destroy'])->name('admin.reports.destroy');
+    Route::get('/admin/citizen-reports/{id}', function ($id) {
+        $report = \App\Models\CitizenReport::with('user')->findOrFail($id);
+        return view('admin.citizen_reports.show', compact('report'));
+    })->name('admin.citizen_reports.show');
     Route::get('/admin/citizen-reports', [CitizenReportController::class, 'index'])->name('admin.citizen_reports.index');
 
     Route::get('/admin/videos/kelola-video', [VideoUploadController::class, 'index'])->name('admin.kelola_video.index');
     Route::post('/admin/videos/kelola-video', [VideoUploadController::class, 'store'])->name('admin.kelola_video.store');
 });
 
-// 3. Smart Route Pembagi Dashboard Utama Berdasarkan Role
+// 3. Smart Route Redirect Fallback (Rujukan Arah Rute)
 Route::get('/dashboard', function () {
-    // Cek apakah yang login adalah admin
-    if (auth()->user()->role === 'admin') {
-        // Jika ya, tendang otomatis ke rute admin.dashboard
+    if (auth()->check() && auth()->user()->role === 'admin') {
         return redirect()->route('admin.dashboard');
     }
-    
-    // Jika bukan admin (warga biasa), tampilkan dashboard user beserta data berita
-    $beritas = \App\Models\Berita::latest()->get();
-    return view('user.dashboard', compact('beritas')); 
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return redirect()->route('user.dashboard');
+})->name('dashboard');
 
 // 4. Kelompok Rute Manajemen Profil Pengguna (Wajib Login)
 Route::middleware('auth')->group(function () {

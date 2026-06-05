@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>@hasSection('title') @yield('title') | {{ config('app.name', 'Flood-Vision') }} @else {{ config('app.name', 'Flood-Vision') }} | Sistem Mitigasi Banjir Cerdas @endif</title>
+        <title>Mori Nalove @hasSection('title') | @yield('title') @else | Monitoring Dan Peringatan Dini @endif</title>
 
         <!-- Favicon -->
         <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
@@ -41,11 +41,21 @@
             html.sidebar-is-collapsed #sidebarUser .menu-label {
                 display: none !important;
             }
-            html.sidebar-is-collapsed #sidebarAdmin .flex-grow a,
-            html.sidebar-is-collapsed #sidebarUser .flex-grow a {
+            html.sidebar-is-collapsed #sidebarAdmin .flex-grow,
+            html.sidebar-is-collapsed #sidebarUser .flex-grow {
                 padding-left: 0 !important;
                 padding-right: 0 !important;
+            }
+            html.sidebar-is-collapsed #sidebarAdmin .flex-grow a,
+            html.sidebar-is-collapsed #sidebarUser .flex-grow a {
+                padding: 0 !important;
                 justify-content: center !important;
+                align-items: center !important;
+                width: 3rem !important;
+                height: 3rem !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                display: flex !important;
             }
             html.sidebar-is-collapsed #btnToggleSidebar,
             html.sidebar-is-collapsed #btnToggleSidebarUser {
@@ -125,50 +135,39 @@
 
                     <!-- Admin Footer -->
                     <footer class="border-t border-slate-200/60 bg-white/40 backdrop-blur-md py-6 text-center mt-auto shrink-0">
-                        <p class="text-slate-500 text-xs font-semibold">&copy; 2026 Flood-Vision System &mdash; Panel Admin Cerdas.</p>
+                        <p class="text-slate-500 text-xs font-semibold">&copy; 2026 Mori Nalove System &mdash; Panel Admin Cerdas.</p>
                     </footer>
                 </div>
             </div>
         @else
-            <!-- REGULAR USER LAYOUT (SIDE-BY-SIDE SIDEBAR) -->
-            <div class="min-h-screen bg-slate-50 flex overflow-x-hidden">
-                @include('layouts.navigation')
-
-                <!-- RIGHT CONTENT AREA -->
-                <div class="flex-grow flex flex-col min-w-0 min-h-screen">
-                    <!-- HEADER TOPBAR -->
-                    <header class="bg-slate-50 h-24 flex items-center justify-end px-8 shrink-0">
-                        <div class="flex items-center gap-4">                       
-                            <!-- Date & Time Widget -->
-                            <div class="bg-white border border-slate-200 rounded-2xl px-4 py-2 flex items-center gap-3 shadow-sm text-xs text-slate-600 font-semibold h-11 shrink-0">
-                                <i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i>
-                                <div class="leading-tight">
-                                    <p class="font-bold text-slate-800" id="topbarDate"></p>
-                                    <p class="text-[10px] text-slate-400 font-medium" id="topbarTime"></p>
-                                </div>
-                            </div>
+            <!-- PUBLIC USER LAYOUT (FULL WIDTH WITH TOP MINIMAL HEADER) -->
+            <div class="min-h-screen bg-slate-50 flex flex-col">
+                <!-- HEADER MINIMALIS -->
+                <header class="bg-white/70 backdrop-blur-md border-b border-slate-200/60 sticky top-0 z-40 w-full shrink-0">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                        <!-- Kiri: Logo + Nama Proyek -->
+                        <div class="flex items-center gap-3">
+                            <img src="{{ asset('img/logo-mori-nalove.png') }}" class="h-12 w-auto transition-transform duration-300 ease-out hover:scale-110 cursor-pointer" alt="Logo Mori Nalove">
+                            <span class="text-xs font-semibold text-slate-400 border-l border-slate-200 pl-3 hidden sm:inline">Monitoring Dan Peringatan Dini</span>
                         </div>
-                    </header>
 
-                    <!-- Page Heading (Optional, e.g. for breadcrumbs) -->
-                    @if (isset($header))
-                        <div class="bg-white border-b border-slate-100 py-6">
-                            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                                {{ $header }}
-                            </div>
-                        </div>
-                    @endif
+                        <!-- Kanan: Tombol Login Admin Tersembunyi Presisi -->
+                        <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 hover:text-blue-600 text-xs font-bold transition-all shadow-sm">
+                            <i class="fa-solid fa-lock"></i>
+                            <span>Login Admin</span>
+                        </a>
+                    </div>
+                </header>
 
-                    <!-- Page Content -->
-                    <main class="flex-grow pb-12">
-                        {{ $slot }}
-                    </main>
+                <!-- Page Content -->
+                <main class="flex-grow pb-12">
+                    {{ $slot }}
+                </main>
 
-                    <!-- Global Footer -->
-                    <footer class="border-t border-slate-200/60 bg-white/40 backdrop-blur-md py-6 text-center mt-auto shrink-0">
-                        <p class="text-slate-500 text-xs font-semibold">&copy; 2026 Flood-Vision System &mdash; Sistem Mitigasi Banjir Cerdas.</p>
-                    </footer>
-                </div>
+                <!-- Global Footer -->
+                <footer class="border-t border-slate-200/60 bg-white/40 backdrop-blur-md py-6 text-center mt-auto shrink-0">
+                    <p class="text-slate-500 text-xs font-semibold">&copy; 2026 Mori Nalove System &mdash; Monitoring Dan Peringatan Dini.</p>
+                </footer>
             </div>
         @endif
 

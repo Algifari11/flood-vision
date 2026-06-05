@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('title', 'Laporan Warga')
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white/70 backdrop-blur-md overflow-hidden shadow-sm rounded-3xl border border-slate-200/60 p-8">
@@ -23,6 +24,7 @@
                                 <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Pelapor</th>
                                 <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Lokasi</th>
                                 <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Genangan</th>
+                                <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Foto Bukti</th>
                                 <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Deskripsi</th>
                                 <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
                                 <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Aksi</th>
@@ -45,6 +47,15 @@
                                         <span class="px-3 py-1.5 text-xs font-bold rounded-xl bg-blue-100 text-blue-700 border border-blue-200 inline-block shadow-sm">Rendah</span>
                                     @endif
                                 </td>
+                                <td class="px-6 py-5 whitespace-nowrap">
+                                    @if($report->foto_bukti)
+                                        <a href="{{ asset('storage/' . $report->foto_bukti) }}" target="_blank" class="block w-12 h-12 rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:scale-105 transition-transform duration-200">
+                                            <img src="{{ asset('storage/' . $report->foto_bukti) }}" alt="Foto Bukti" class="w-full h-full object-cover">
+                                        </a>
+                                    @else
+                                        <span class="text-xs text-slate-400 font-medium italic">Tidak ada foto</span>
+                                    @endif
+                                </td>
                                 <td class="px-6 py-5 text-sm text-slate-600 max-w-[250px] truncate" title="{{ $report->deskripsi }}">{{ $report->deskripsi ?: '-' }}</td>
                                 <td class="px-6 py-5 whitespace-nowrap" id="status-report-{{ $report->id }}">
                                     @if($report->status == 'Pending')
@@ -56,16 +67,16 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-5 text-right whitespace-nowrap">
-                                    @if($report->status == 'Pending')
-                                        <button onclick="verifikasiLaporan({{ $report->id }}, this)" class="px-4 py-2 text-xs font-bold bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-2 ml-auto">
-                                            <i data-lucide="check" class="w-4 h-4"></i> Verifikasi
-                                        </button>
-                                    @endif
+                                    <div class="flex items-center justify-end">
+                                        <a href="{{ route('admin.citizen_reports.show', $report->id) }}" class="px-4 py-2 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-1.5">
+                                            <i data-lucide="eye" class="w-4 h-4"></i> Lihat Detail
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="7" class="px-6 py-12 text-center text-slate-500 font-medium">
+                                <td colspan="8" class="px-6 py-12 text-center text-slate-500 font-medium">
                                     <div class="flex flex-col items-center justify-center">
                                         <i data-lucide="inbox" class="w-12 h-12 text-slate-300 mb-3"></i>
                                         <p>Belum ada laporan dari warga.</p>
@@ -86,40 +97,4 @@
         </div>
     </div>
 
-    @push('scripts')
-    <script>
-        async function verifikasiLaporan(id, btn) {
-            btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Proses...';
-            lucide.createIcons();
-            
-            try {
-                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                const response = await fetch(`/admin/reports/${id}/verify`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': csrfToken
-                    }
-                });
-                
-                const resData = await response.json();
-                if (response.ok && resData.success) {
-                    const statusTd = document.getElementById(`status-report-${id}`);
-                    statusTd.innerHTML = '<span class="px-3 py-1.5 text-xs font-bold rounded-xl bg-emerald-100 text-emerald-700 border border-emerald-200 inline-flex items-center gap-1.5 shadow-sm"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Terverifikasi</span>';
-                    btn.remove();
-                    lucide.createIcons();
-                } else {
-                    alert('Gagal memverifikasi laporan.');
-                    btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Verifikasi';
-                    lucide.createIcons();
-                }
-            } catch (e) {
-                console.error(e);
-                alert('Kesalahan jaringan.');
-                btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Verifikasi';
-                lucide.createIcons();
-            }
-        }
-    </script>
-    @endpush
 </x-app-layout>

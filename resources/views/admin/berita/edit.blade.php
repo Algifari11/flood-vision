@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('title', 'Edit Berita')
     <x-slot name="header">
         <h2 class="font-extrabold text-2xl text-slate-800 leading-tight flex items-center gap-2">
             <i data-lucide="edit-3" class="w-6 h-6 text-blue-600"></i>

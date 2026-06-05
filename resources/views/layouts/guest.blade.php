@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>@hasSection('title') @yield('title') | {{ config('app.name', 'Flood-Vision') }} @else {{ config('app.name', 'Flood-Vision') }} | Sistem Mitigasi Banjir Cerdas @endif</title>
+        <title>Mori Nalove @hasSection('title') | @yield('title') @else | Monitoring Dan Peringatan Dini @endif</title>
 
         <!-- Favicon -->
         <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
@@ -24,12 +24,7 @@
         <div class="relative z-10 w-full sm:max-w-md my-auto px-8 py-10 bg-white/70 backdrop-blur-xl border border-white shadow-2xl rounded-3xl">
             <div class="flex justify-center mb-8">
                 <a href="/" class="flex flex-col items-center gap-3 group">
-                    <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 12c2.667 0 5.333-2 8-2s5.333 2 8 2 5.333-2 8-2M2 18c2.667 0 5.333-2 8-2s5.333 2 8 2 5.333-2 8-2M2 6c2.667 0 5.333-2 8-2s5.333 2 8 2 5.333-2 8-2"></path>
-                        </svg>
-                    </div>
-                    <span class="font-extrabold text-xl text-slate-800 tracking-tight">Flood Vision</span>
+                    <img src="{{ asset('img/logo-mori-nalove.png') }}" alt="Mori Nalove Logo" class="h-16 w-auto object-contain group-hover:scale-110 transition-transform">
                 </a>
             </div>
 

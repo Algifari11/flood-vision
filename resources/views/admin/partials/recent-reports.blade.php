@@ -37,11 +37,11 @@
                     </div>
                 </div>
 
-                @if($report->status == 'Pending')
-                <button onclick="verifikasiLaporan({{ $report->id }}, this)" class="px-2 py-1 text-[10px] font-bold bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors flex items-center gap-1 shadow-sm">
-                    <i data-lucide="check" class="w-3 h-3"></i>
-                </button>
-                @endif
+                <div class="flex items-center">
+                    <a href="{{ route('admin.citizen_reports.show', $report->id) }}" class="px-2.5 py-1 text-[10px] font-bold bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors flex items-center gap-1 shadow-sm">
+                        <i data-lucide="eye" class="w-3 h-3"></i> Lihat Detail
+                    </a>
+                </div>
             </div>
             <p class="text-xs text-slate-500 mt-2 truncate">{{ $report->deskripsi ?: 'Tanpa catatan' }}</p>
         </div>

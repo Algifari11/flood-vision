@@ -6,7 +6,7 @@
                 <span class="bg-blue-100/80 text-blue-700 text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 backdrop-blur-sm">
                     <i data-lucide="calendar" class="w-4 h-4"></i> <span id="modalBeritaTanggal"></span>
                 </span>
-                <span class="text-slate-400 text-sm font-medium hidden md:inline-block">— Sistem Mitigasi Banjir Cerdas</span>
+                <span class="text-slate-400 text-sm font-medium hidden md:inline-block">— Monitoring Dan Peringatan Dini</span>
             </div>
             <button onclick="tutupModalBerita()" class="p-2 bg-slate-200/80 hover:bg-red-100 hover:text-red-600 text-slate-500 rounded-full transition-colors focus:outline-none backdrop-blur-sm">
                 <i data-lucide="x" class="w-5 h-5"></i>

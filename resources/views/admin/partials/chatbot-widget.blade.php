@@ -13,7 +13,7 @@
                     <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-slate-950 rounded-full animate-pulse"></span>
                 </div>
                 <div>
-                    <h4 class="font-bold text-sm tracking-tight text-slate-100">Flood Vision Assistant</h4>
+                    <h4 class="font-bold text-sm tracking-tight text-slate-100">Mori Nalove Assistant</h4>
                     <div class="flex items-center gap-1.5 mt-0.5">
                         <span class="text-[9px] text-indigo-300 font-bold tracking-wider uppercase bg-indigo-500/20 px-1.5 py-0.5 rounded-md border border-indigo-500/30">AI Mitigasi</span>
                         <span class="text-[9px] text-emerald-400 font-medium">Online</span>
@@ -33,7 +33,7 @@
                     <i data-lucide="sparkles" class="w-4 h-4"></i>
                 </div>
                 <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-slate-200/60 shadow-sm text-sm text-slate-700 leading-relaxed font-medium">
-                    Halo! Saya AI Flood Vision. Ada yang bisa saya bantu terkait informasi mitigasi atau evakuasi hari ini?
+                    Halo! Saya AI Mori Nalove. Ada yang bisa saya bantu terkait informasi mitigasi atau evakuasi hari ini?
                 </div>
             </div>
 

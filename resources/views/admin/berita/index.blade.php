@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('title', 'Kelola Berita')
     <div class="py-8 relative min-h-screen">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8 space-y-8">
             

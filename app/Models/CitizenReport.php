@@ -15,6 +15,7 @@ class CitizenReport extends Model
         'tingkat_genangan',
         'deskripsi',
         'status',
+        'foto_bukti',
     ];
 
     public function user()
