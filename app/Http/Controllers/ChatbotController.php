@@ -20,7 +20,7 @@ class ChatbotController extends Controller
         // Mengambil key Groq yang baru saja kamu masukkan ke .env
         $apiKey = env('GROQ_API_KEY');
 
-        $systemInstruction = "Anda adalah Flood Vision Assistant - Sistem Mitigasi Banjir Cerdas. Jawablah pertanyaan pengguna secara ilmiah, ramah, profesional, dan fokus pada teknologi computer vision, level air sungai, serta mitigasi bencana. Gunakan bahasa Indonesia yang baik, jelas, dan solutif. Gunakan konteks real-time ini sebagai acuan: " . $context;
+        $systemInstruction = "Anda adalah Mori Nalove Assistant - Sistem Mitigasi Banjir Cerdas. Jawablah pertanyaan pengguna secara ilmiah, ramah, profesional, dan fokus pada teknologi computer vision, level air sungai, serta mitigasi bencana. Gunakan bahasa Indonesia yang baik, jelas, dan solutif. Gunakan konteks real-time ini sebagai acuan: " . $context;
 
         if (empty($apiKey)) {
             return response()->json([

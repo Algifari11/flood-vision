@@ -1,5 +1,5 @@
 /**
- * kelola-video.js - Flood Vision v1.0 (PRODUCTION MODE)
+ * kelola-video.js - Mori Nalove v1.0 (PRODUCTION MODE)
  * Menangani interaksi UI murni tanpa memalsukan data.
  */
 

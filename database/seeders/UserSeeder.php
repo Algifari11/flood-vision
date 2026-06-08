@@ -22,14 +22,5 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin123'), // Password akun admin
             'role' => 'admin',                       // Sesuaikan jika kolomnya bernama 'usertype'
         ]);
-
-        // 2. SEED DATA AKUN USER REGULER (WARGA)
-        User::create([
-            'name' => 'Warga',
-            'email' => 'warga@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('warga123'),    // Password akun user/warga
-            'role' => 'user',                        // Sesuaikan jika kolomnya bernama 'usertype'
-        ]);
     }
 }

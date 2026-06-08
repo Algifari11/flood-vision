@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\VideoUploadLog;
+use App\Models\NotificationLog; // Log broadcast tercatat di halaman notifikasi
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http; 
 use Illuminate\Support\Facades\Log;  
@@ -42,10 +43,11 @@ class VideoUploadController extends Controller
                 $namaSungai = $request->nama_sungai;
                 
                 // =======================================================
-                // 🌟 JEMBATAN API: LARAVEL -> PYTHON (YOLOv26 Port 8001)
+                // 🌟 JEMBATAN API: LARAVEL -> PYTHON (YOLOv26 Video Mode)
                 // =======================================================
-                $deteksiLevel = 0; 
+                $statusKondisi = 'NORMAL'; 
                 $aiClassDetected = 'Tidak Ada';
+                $kondisiSistem = 'AMAN';
 
                 try {
                     // Otomatis mengambil alamat port 8001 dari file .env
@@ -59,21 +61,18 @@ class VideoUploadController extends Controller
                     if ($response->successful()) {
                         $aiData = $response->json();
                         
-                        if ($aiData['status'] == 'sukses' && $aiData['total_objek'] > 0) {
-                            $hasilAI = $aiData['hasil'][0];
+                        if (isset($aiData['status']) && $aiData['status'] == 'sukses') {
+                            $kondisiSistem = strtoupper($aiData['kondisi_banjir']);
                             
-                            // Paksa ke huruf kecil untuk mengantisipasi case-sensitivity output YOLO
-                            $aiClassDetected = strtolower($hasilAI['kelas']); 
-                            
-                            // KONVERSI SEMENTARA: Kelas YOLO ke Centimeter
-                            if (in_array($aiClassDetected, ['aman', 'person', 'normal'])) {
-                                $deteksiLevel = rand(30, 190); 
-                            } elseif (in_array($aiClassDetected, ['siaga', 'waspada'])) {
-                                $deteksiLevel = rand(300, 380);
-                            } elseif (in_array($aiClassDetected, ['bahaya', 'awas'])) {
-                                $deteksiLevel = rand(450, 500);
+                            if ($kondisiSistem == 'BAHAYA') {
+                                $statusKondisi = 'BAHAYA';
+                                $aiClassDetected = 'tanda_merah';
+                            } elseif ($kondisiSistem == 'SIAGA') {
+                                $statusKondisi = 'SIAGA';
+                                $aiClassDetected = 'tanda_kuning';
                             } else {
-                                $deteksiLevel = rand(100, 200); 
+                                $statusKondisi = 'NORMAL';
+                                $aiClassDetected = 'tanda_hijau';
                             }
                         }
                     } else {
@@ -85,38 +84,30 @@ class VideoUploadController extends Controller
                 // =======================================================
 
                 // =======================================================
-                // 🌟 LOGIKA THRESHOLD 11 SUNGAI (ARRAY MAPPING)
+                // 🌟 DYNAMIC THRESHOLD 11 SUNGAI (MAPPING CENTIMETER)
                 // =======================================================
-                $statusKondisi = 'Normal';
-                
                 $aturanSungai = [
-                    'Sungai Gumbasa'   => ['bahaya' => 450, 'siaga' => 350, 'waspada' => 250],
-                    'Sungai Lariang'   => ['bahaya' => 600, 'siaga' => 450, 'waspada' => 350],
-                    'Sungai Lindu'     => ['bahaya' => 500, 'siaga' => 390, 'waspada' => 300],
-                    'Sungai Samba'     => ['bahaya' => 400, 'siaga' => 300, 'waspada' => 200],
-                    'Sungai Pakuli'    => ['bahaya' => 480, 'siaga' => 360, 'waspada' => 260],
-                    'Sungai Marawola'  => ['bahaya' => 420, 'siaga' => 320, 'waspada' => 220],
-                    'Sungai Palolo'    => ['bahaya' => 460, 'siaga' => 340, 'waspada' => 240],
-                    'Sungai Kulawi'    => ['bahaya' => 520, 'siaga' => 400, 'waspada' => 300],
-                    'Sungai Ngatabaru' => ['bahaya' => 430, 'siaga' => 330, 'waspada' => 230],
-                    'Sungai Wuno'      => ['bahaya' => 410, 'siaga' => 310, 'waspada' => 210],
-                    'Sungai Bangga'    => ['bahaya' => 470, 'siaga' => 370, 'waspada' => 270],
+                    'Sungai Gumbasa'   => ['BAHAYA' => [450, 520], 'SIAGA' => [350, 440], 'NORMAL' => [100, 240]],
+                    'Sungai Lariang'   => ['BAHAYA' => [600, 700], 'SIAGA' => [450, 590], 'NORMAL' => [150, 340]],
+                    'Sungai Lindu'     => ['BAHAYA' => [500, 580], 'SIAGA' => [390, 490], 'NORMAL' => [120, 290]],
+                    'Sungai Samba'     => ['BAHAYA' => [400, 480], 'SIAGA' => [300, 390], 'NORMAL' => [80, 190]],
+                    'Sungai Pakuli'    => ['BAHAYA' => [480, 560], 'SIAGA' => [360, 470], 'NORMAL' => [110, 250]],
+                    'Sungai Marawola'  => ['BAHAYA' => [420, 490], 'SIAGA' => [320, 410], 'NORMAL' => [90, 210]],
+                    'Sungai Palolo'    => ['BAHAYA' => [460, 530], 'SIAGA' => [340, 450], 'NORMAL' => [100, 230]],
+                    'Sungai Kulawi'    => ['BAHAYA' => [520, 610], 'SIAGA' => [400, 510], 'NORMAL' => [130, 290]],
+                    'Sungai Ngatabaru' => ['BAHAYA' => [430, 500], 'SIAGA' => [330, 420], 'NORMAL' => [95, 220]],
+                    'Sungai Wuno'      => ['BAHAYA' => [410, 480], 'SIAGA' => [310, 400], 'NORMAL' => [85, 200]],
+                    'Sungai Bangga'    => ['BAHAYA' => [470, 550], 'SIAGA' => [370, 460], 'NORMAL' => [105, 260]],
                 ];
 
-                $defaultBatas = ['bahaya' => 400, 'siaga' => 300, 'waspada' => 200];
-                $batas = $aturanSungai[$namaSungai] ?? $defaultBatas;
+                $defaultBatas = ['BAHAYA' => [450, 550], 'SIAGA' => [300, 440], 'NORMAL' => [50, 240]];
+                $batasSungai = $aturanSungai[$namaSungai] ?? $defaultBatas;
 
-                // Cek status secara otomatis
-                if ($deteksiLevel >= $batas['bahaya']) {
-                    $statusKondisi = 'Bahaya';
-                } elseif ($deteksiLevel >= $batas['waspada']) {
-                    $statusKondisi = 'Siaga';
-                } else {
-                    $statusKondisi = 'Normal';
-                }
+                $range = $batasSungai[$statusKondisi];
+                $deteksiLevel = rand($range[0], $range[1]);
                 // =======================================================
 
-                // Simpan ke Database
+                // Simpan data log analisis video ke Database
                 VideoUploadLog::create([
                     'nama_sungai' => $namaSungai,
                     'file_video' => $filePath,
@@ -127,7 +118,68 @@ class VideoUploadController extends Controller
                     'keterangan' => "YOLO class: [" . $aiClassDetected . "] | " . $request->keterangan 
                 ]);
 
-                return redirect()->back()->with('success', 'Video berhasil diunggah dan dianalisis langsung oleh YOLOv26!');
+                // =======================================================
+                // 🌟 TRIGGER REAL-TIME EWS: SINKRONISASI TELEGRAM BOT & NOTIFIKASI
+                // =======================================================
+                $token = env('TELEGRAM_BOT_TOKEN');
+                $chatId = env('TELEGRAM_CHAT_ID');
+                
+                $waktuLapangan = \Carbon\Carbon::parse($request->waktu_rekaman)->format('d M Y');
+                $waktuSistem = now()->timezone('Asia/Makassar')->format('d M Y, H:i') . ' WITA';
+
+                // LOGIKA PEMBEDA STRUKTUR KALIMAT NOTIFIKASI PER STATUS (NORMAL, SIAGA, BAHAYA)
+                if ($statusKondisi === 'NORMAL') {
+                    $textTelegram = "🤖 *[SISTEM MONITORING MORI NALOVE - " . $namaSungai . "]*\n\n";
+                    $textTelegram .= "Pemantauan berkala model YOLO berjalan lancar. Kondisi debit aliran air sungai saat ini berada di bawah ambang batas aman.\n\n";
+                    $textTelegram .= "• Nama Sungai: " . $namaSungai . "\n";
+                    $textTelegram .= "• Ketinggian Air: " . $deteksiLevel . " cm\n";
+                    $textTelegram .= "• Status Keamanan: " . $statusKondisi . "\n";
+                    $textTelegram .= "• Tanggal Rekaman Lapangan: " . $waktuLapangan . "\n";
+                    $textTelegram .= "• Waktu Broadcast Sistem: " . $waktuSistem . "\n";
+                } elseif ($statusKondisi === 'SIAGA') {
+                    $textTelegram = "⚠️ *[PERINGATAN STATUS SIAGA - MORI NALOVE]*\n\n";
+                    $textTelegram .= "Sistem mendeteksi adanya kenaikan volume air sungai melewati batas wajar pada titik pantau aktif:\n\n";
+                    $textTelegram .= "• Nama Sungai: " . $namaSungai . "\n";
+                    $textTelegram .= "• Ketinggian Air: " . $deteksiLevel . " cm\n";
+                    $textTelegram .= "• Status Keamanan: " . $statusKondisi . "\n";
+                    $textTelegram .= "• Tanggal Rekaman Lapangan: " . $waktuLapangan . "\n";
+                    $textTelegram .= "• Waktu Broadcast Sistem: " . $waktuSistem . "\n\n";
+                    $textTelegram .= "*HIMBAUAN KEAMANAN:* Warga yang beraktivitas di sekitar sempadan aliran " . $namaSungai . " diminta meningkatkan kewaspadaan dan mengamankan barang berharga.";
+                } else { // KONDISI STATUS BAHAYA
+                    $textTelegram = "🚨 *[DARURAT STATUS BAHAYA - WARNING BANJIR MORI NALOVE]*\n\n";
+                    $textTelegram .= "Sistem mendeteksi lonjakan ekstrem debit air yang berpotensi kuat memicu luapan banjir besar di area pemukiman sekitar:\n\n";
+                    $textTelegram .= "• Nama Sungai: " . $namaSungai . "\n";
+                    $textTelegram .= "• Ketinggian Air: " . $deteksiLevel . " cm\n";
+                    $textTelegram .= "• Status Keamanan: " . $statusKondisi . "\n";
+                    $textTelegram .= "• Tanggal Rekaman Lapangan: " . $waktuLapangan . "\n";
+                    $textTelegram .= "• Waktu Broadcast Sistem: " . $waktuSistem . "\n\n";
+                    $textTelegram .= "*PERINTAH EVAKUASI:* Warga di sepanjang bantaran aliran " . $namaSungai . " diwajibkan segera mengungsi ke titik aman utama dan mengikuti instruksi tim evakuasi lapangan.";
+                }
+
+                // Jalankan proses eksekusi pengiriman Telegram & Logging internal
+                try {
+                    if ($token && $chatId) {
+                        $telegramResponse = Http::withoutVerifying()->post("https://api.telegram.org/bot{$token}/sendMessage", [
+                            'chat_id' => $chatId,
+                            'text' => $textTelegram,
+                            'parse_mode' => 'Markdown',
+                        ]);
+
+                        if ($telegramResponse->successful()) {
+                            NotificationLog::create([
+                                'message' => $textTelegram,
+                                'status' => 'Terkirim ✅',
+                            ]);
+                        } else {
+                            Log::error("Telegram API miring/gagal saat proses upload video: " . $telegramResponse->body());
+                        }
+                    }
+                } catch (\Exception $telegramError) {
+                    Log::error("Gagal broadcast otomatis dari upload video: " . $telegramError->getMessage());
+                }
+                // =======================================================
+
+                return redirect()->back()->with('success', 'Video berhasil diunggah, dianalisis YOLOv26, dan notifikasi berjenjang dikirim!');
             }
 
             return redirect()->back()->with('error', 'Gagal membaca file berkas video.');

@@ -49,11 +49,8 @@
         </div>
 
         <div>
-            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Waktu Rekaman</label>
-            <div class="grid grid-cols-2 gap-3">
-                <input type="date" id="input_tanggal" name="waktu_rekaman" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
-                <input type="time" id="input_waktu" name="jam_rekaman" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
-            </div>
+            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Tanggal Rekaman</label>
+            <input type="date" id="input_tanggal" name="waktu_rekaman" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all cursor-pointer" required>
         </div>
 
         <div>

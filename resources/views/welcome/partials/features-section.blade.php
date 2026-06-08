@@ -1,6 +1,6 @@
 <section id="fitur" class="relative z-10 max-w-7xl mx-auto px-4 w-full mb-24 scroll-mt-24 reveal-on-scroll">
     <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-black text-slate-800">Teknologi di Balik Flood-Vision</h2>
+        <h2 class="text-3xl md:text-4xl font-black text-slate-800">Teknologi di Balik Mori Nalove</h2>
         <p class="text-slate-500 mt-3 max-w-lg mx-auto">Integrasi arsitektur perangkat lunak modern untuk kecepatan pengiriman data informasi bencana.</p>
     </div>
 

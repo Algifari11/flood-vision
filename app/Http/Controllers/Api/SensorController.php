@@ -31,7 +31,7 @@ class SensorController extends Controller
         // KONDISI KUNING (SIAGA POTENSI BANJIR)
         if ($request->water_level >= 50 && $request->water_level < 80) {
             $message = "⚠️ [PERINGATAN STATUS KUNING - SIAGA]\n";
-            $message .= "Sistem Flood-Vision mendeteksi kenaikan air sungai.\n\n";
+            $message .= "Sistem Mori Nalove mendeteksi kenaikan air sungai.\n\n";
             $message .= "• Ketinggian Air: " . $request->water_level . "%\n";
             $message .= "• Status Keamanan: SIAGA (KUNING)\n";
             $message .= "• Waktu Kejadian: " . now()->format('d M Y, H:i') . " WITA\n\n";

@@ -5,7 +5,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 12c2.667 0 5.333-2 8-2s5.333 2 8 2 5.333-2 8-2M2 18c2.667 0 5.333-2 8-2s5.333 2 8 2 5.333-2 8-2M2 6c2.667 0 5.333-2 8-2s5.333 2 8 2 5.333-2 8-2"></path>
             </svg>
         </div>
-        <span class="font-extrabold text-xl tracking-tight text-slate-800">Flood Vision</span>
+        <span class="font-extrabold text-xl tracking-tight text-slate-800">Mori Nalove</span>
     </div>
 
     @if (Route::has('login'))

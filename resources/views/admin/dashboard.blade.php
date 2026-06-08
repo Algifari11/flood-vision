@@ -64,17 +64,17 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 items-stretch">
-                
-                <div class="xl:col-span-1 flex flex-col h-full space-y-8">
-                    @include('admin.partials.camera-feed')
-                    @include('admin.partials.recent-reports')
+            
+            <div class="space-y-8">
+                <!-- Tren Ketinggian Air (Grafik) - Lebar Penuh -->
+                <div class="w-full">
+                    @include('admin.partials.water-chart')
                 </div>
 
-                <div class="xl:col-span-2 flex flex-col h-full space-y-8">                 
-                    <div class="flex-grow flex flex-col h-0 w-full">
-                        @include('admin.partials.water-chart')
-                    </div>
+                <!-- Laporan Darurat Baru - Lebar Penuh di Bawahnya -->
+                <div class="w-full">
+                    {{-- @include('admin.partials.camera-feed') --}}
+                    @include('admin.partials.recent-reports')
                 </div>
             </div>
 

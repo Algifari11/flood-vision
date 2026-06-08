@@ -23,24 +23,6 @@
                     </h2>
                     <p class="text-slate-500 mt-2 text-sm">Tulis berita mitigasi baru atau pantau seluruh riwayat informasi publik yang telah disiarkan.</p>
                 </div>
-                
-                <!-- Utility Bar / Dropdown Filter -->
-                <div class="w-full sm:w-auto bg-white/40 backdrop-blur-md border border-white/50 rounded-2xl p-4 flex flex-col sm:flex-row items-end gap-3.5 shadow-sm shrink-0 transition-all duration-300 hover:bg-white/60 hover:shadow-md">
-                    <div class="w-full sm:w-48">
-                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Filter Kategori</label>
-                        <div class="relative">
-                            <select id="kategori_filter" class="w-full bg-white/30 border border-white/40 rounded-xl pl-3 pr-8 py-2 text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 cursor-pointer appearance-none transition-all">
-                                <option value="semua">Semua Berita</option>
-                                <option value="peringatan">Peringatan Banjir</option>
-                                <option value="imbauan">Imbauan/Panduan</option>
-                                <option value="cuaca">Info Cuaca</option>
-                            </select>
-                            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- 🌟 PENATAAN FORM "TULIS BERITA BARU" (BAGIAN TENGAH - FULL WIDTH) -->

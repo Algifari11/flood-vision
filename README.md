@@ -12,7 +12,7 @@
 
 ##  1. Header & High-Tech Introduction
 
-**Flood-Vision** adalah platform mitigasi bencana banjir cerdas hibrida berkinerja tinggi yang dirancang khusus untuk memantau, mendeteksi, dan mengumumkan status level air sungai secara *real-time*. Platform ini beroperasi dengan presisi tingkat tinggi untuk meminimalkan risiko bencana banjir di zona rawan dan siaga tinggi, seperti **Sungai Gumbasa**, **Sungai Lariang**, dan **Sungai Ngatabaru**.
+**Mori Nalove** adalah platform mitigasi bencana banjir cerdas hibrida berkinerja tinggi yang dirancang khusus untuk memantau, mendeteksi, dan mengumumkan status level air sungai secara *real-time*. Platform ini beroperasi dengan presisi tingkat tinggi untuk meminimalkan risiko bencana banjir di zona rawan dan siaga tinggi, seperti **Sungai Gumbasa**, **Sungai Lariang**, dan **Sungai Ngatabaru**.
 
 Sistem ini mengadopsi arsitektur *decoupled hybrid architecture* yang memisahkan beban kerja pemrosesan aplikasi menjadi tiga pilar utama:
 1. **State Management & Front-End Dashboard Engine (Laravel PHP):** Mengelola autentikasi pengguna, dasbor interaktif, kontrol administratif, penyimpanan basis data relasional, dan otorisasi keamanan tingkat tinggi.
@@ -20,7 +20,7 @@ Sistem ini mengadopsi arsitektur *decoupled hybrid architecture* yang memisahkan
 3. **Automated Emergency Broadcasting Pipeline (Telegram Bot API):** Mengirimkan peringatan bencana instan secara langsung ke perangkat warga dan tim penolong di lapangan.
 
 ###  Deep Learning Core: YOLOv26 Nano Integration
-Jantung kecerdasan buatan dari Flood-Vision bertumpu pada arsitektur jaringan saraf konvolusional **YOLOv26 Nano** yang telah dispesialisasikan melalui *custom-training* menggunakan bobot model teroptimasi (`.pt`). Model ini dilatih secara khusus untuk mengekstrak fitur garis batas air, mendeteksi laju fluktuasi ketinggian air sungai secara piksel-demi-piksel, serta menghitung status luapan secara langsung dari umpan *video stream* resolusi tinggi dengan kebutuhan komputasi minimal (*ultra-low edge footprint*).
+Jantung kecerdasan buatan dari Mori Nalove bertumpu pada arsitektur jaringan saraf konvolusional **YOLOv26 Nano** yang telah dispesialisasikan melalui *custom-training* menggunakan bobot model teroptimasi (`.pt`). Model ini dilatih secara khusus untuk mengekstrak fitur garis batas air, mendeteksi laju fluktuasi ketinggian air sungai secara piksel-demi-piksel, serta menghitung status luapan secara langsung dari umpan *video stream* resolusi tinggi dengan kebutuhan komputasi minimal (*ultra-low edge footprint*).
 
 ---
 
@@ -49,13 +49,13 @@ Halaman pendarat (*landing page*) publik bernuansa premium bergaya Bento Box Lay
 
 ## 3. Step-by-Step Installation & Deployment Guide
 
-Ikuti instruksi teknis di bawah ini untuk memasang dan menjalankan ekosistem Flood-Vision secara lokal di mesin pengembangan Anda:
+Ikuti instruksi teknis di bawah ini untuk memasang dan menjalankan ekosistem Mori Nalove secara lokal di mesin pengembangan Anda:
 
 ### Langkah 1: Kloning Repositori
 Jalankan perintah Git berikut untuk menyalin kode sumber ke komputer Anda:
 ```bash
-git clone https://github.com/imamagil17/flood-vision.git
-cd flood-vision
+git clone https://github.com/imamagil17/mori-nalove.git
+cd mori-nalove
 ```
 
 ### Langkah 2: Pemasangan Dependensi Proyek
@@ -76,7 +76,7 @@ cp .env.example .env
 
 Buka file `.env` yang baru saja dibuat, lalu konfigurasikan parameter koneksi database MySQL, kunci aplikasi, serta integrasi eksternal Telegram Anda:
 ```ini
-APP_NAME=Flood-Vision
+APP_NAME="Mori Nalove"
 APP_ENV=local
 APP_KEY=
 APP_DEBUG=true
@@ -86,7 +86,7 @@ APP_URL=http://127.0.0.1:8000
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=flood_vision_db
+DB_DATABASE=mori_nalove_db
 DB_USERNAME=root
 DB_PASSWORD=
 
@@ -129,13 +129,13 @@ npm run dev
 php artisan serve
 ```
 
-Aplikasi web Flood-Vision kini aktif dan siap diakses melalui tautan peramban Anda di: **`http://127.0.0.1:8000`**
+Aplikasi web Mori Nalove kini aktif dan siap diakses melalui tautan peramban Anda di: **`http://127.0.0.1:8000`**
 
 ---
 
 ## 4. Application Operational Walkthrough
 
-Berikut adalah skenario alur kerja operasional penggunaan sistem Flood-Vision dari sisi Warga hingga Administrator:
+Berikut adalah skenario alur kerja operasional penggunaan sistem Mori Nalove dari sisi Warga hingga Administrator:
 
 ### Skenario A: Warga (Citizen User Flow)
 1. **Autentikasi Akun:** Warga membuka situs web utama, masuk ke halaman pendaftaran/login, dan memasukkan kredensial akun warga mereka.
@@ -155,13 +155,13 @@ Berikut adalah skenario alur kerja operasional penggunaan sistem Flood-Vision da
     *   Apabila model AI mendeteksi tinggi air melampaui ambang batas kritis (contoh: naik drastis di *Sungai Ngatabaru*), Admin menuju panel **"Telegram Emergency Broadcast Panel"**.
     *   Pesan peringatan dini disusun secara otomatis oleh sistem, lengkap dengan stempel waktu real-time berzona **WITA (Asia/Makassar)**.
     *   Admin menekan tombol **"Test-Fire Payload"** untuk mensimulasikan pengiriman.
-    *   Sinyal HTTP dikirim ke Telegram Bot API, dan detik itu juga, bot Flood-Vision menyiarkan pesan peringatan evakuasi massal resmi ke saluran publik Telegram.
+    *   Sinyal HTTP dikirim ke Telegram Bot API, dan detik itu juga, bot Mori Nalove menyiarkan pesan peringatan evakuasi massal resmi ke saluran publik Telegram.
 
 ---
 
 ## 5. Official Credits & Dedication
 
-Aplikasi **Flood-Vision (Sistem Mitigasi Banjir Cerdas)** didekasikan sebagai bagian dari luaran proyek riset terapan inovasi teknologi mitigasi bencana alam.
+Aplikasi **Mori Nalove (Sistem Mitigasi Banjir Cerdas)** didekasikan sebagai bagian dari luaran proyek riset terapan inovasi teknologi mitigasi bencana alam.
 
 *   **Pengembang Utama:** Kelompok 12
 *   **Institusi:** Program Studi Teknik Informatika & Sistem Informasi, Jurusan Teknologi Informasi, Fakultas Teknik, **Universitas Tadulako**, Palu, Sulawesi Tengah.

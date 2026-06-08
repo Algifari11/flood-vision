@@ -32,10 +32,6 @@
                 </div>
 
                 <div class="bg-white/40 backdrop-blur-md border border-white/50 rounded-2xl p-3 flex items-center gap-4 shadow-sm w-fit shrink-0">
-                    <div class="flex items-center gap-2 px-3 border-r border-slate-300/50">
-                        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-                        <span class="text-xs font-black text-slate-700 uppercase tracking-wider">Feed Pemantauan</span>
-                    </div>
                 </div>
             </div>
 
@@ -56,16 +52,6 @@
 
                 <div class="xl:col-span-3 bg-white/40 backdrop-blur-md border border-white/50 rounded-3xl p-6 shadow-sm transition-all duration-300 hover:bg-white/50 space-y-5">
                     
-                    <div class="flex items-center justify-between border-b border-slate-200/40 pb-4">
-                        <div class="flex items-center gap-2.5">
-                            <div class="p-2 bg-indigo-100/80 text-indigo-600 rounded-xl"><i data-lucide="clapperboard" class="w-4 h-4"></i></div>
-                            <h3 class="text-base font-black text-slate-800 tracking-tight">Koleksi Video Tersemat</h3>
-                        </div>
-                        <span class="text-xs font-bold text-slate-500 bg-white/60 px-3 py-1.5 rounded-xl border border-slate-200/40 shadow-sm">
-                            Gumbasa & Lindu Player
-                        </span>
-                    </div>
-
                     <div class="text-slate-700">
                         @include('admin.partials.list-video')
                     </div>

@@ -1,5 +1,5 @@
 /**
- * classification.js — Flood-Vision v1.0
+ * classification.js — Mori Nalove v1.0
  *
  * Stable Architecture:
  *  - Video frame is drawn to canvas via ctx.drawImage() FIRST (no black screen).

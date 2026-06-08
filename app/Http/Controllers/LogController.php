@@ -77,7 +77,7 @@ class LogController extends Controller
 
             // Format isi pesan baru wajib seperti spesifikasi user
             $message = "🚨 *[DARURAT STATUS " . $status . " - WARNING BANJIR]*\n";
-            $message .= "PERINGATAN KRITIS! Sistem Flood Vision mendeteksi luapan air pada lokasi pemantauan aktif.\n";
+            $message .= "PERINGATAN KRITIS! Sistem Mori Nalove mendeteksi luapan air pada lokasi pemantauan aktif.\n";
             $message .= "• Nama Sungai: " . $namaSungai . "\n";
             $message .= "• Ketinggian Air: " . $nilaiCm . " cm\n";
             $message .= "• Status Keamanan: " . $status . "\n";
