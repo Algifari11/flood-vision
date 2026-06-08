@@ -1,6 +1,6 @@
 <div class="w-full h-screen relative overflow-hidden bg-slate-100 left-0 right-0">
     
-    <div class="absolute top-6 left-1/2 -translate-x-1/2 z-[40] w-auto whitespace-nowrap p-3 bg-white/80 backdrop-blur-lg border border-slate-200/50 rounded-2xl shadow-xl shadow-slate-900/5 animate-[slideDown_0.3s_ease-out]">
+    <div class="absolute top-6 left-1/2 -translate-x-1/2 z-[20] w-auto whitespace-nowrap p-3 bg-white/80 backdrop-blur-lg border border-slate-200/50 rounded-2xl shadow-xl shadow-slate-900/5 animate-[slideDown_0.3s_ease-out]">
         
         <div class="flex items-center gap-5 px-4 py-2 bg-slate-100/60 rounded-xl border border-slate-200/40 text-xs font-bold text-slate-600 shadow-inner">
             <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse ring-4 ring-emerald-500/20"></span> Normal</span>
@@ -74,7 +74,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Inisialisasi Peta Fullscreen KUNCI TOTAL AKSI ZOOM LIAR
-            // 🌟 FIX: Tingkat zoom diatur ke 10 agar menjauh (zoom out) 1x dari sebelumnya
             const map = L.map('map', {
                 zoomControl: true,
                 scrollWheelZoom: false,  // KUNCI: Matikan zoom lewat scroll mouse
