@@ -7,17 +7,13 @@
 
         <title>Mori Nalove @hasSection('title') | @yield('title') @else | Monitoring Dan Peringatan Dini @endif</title>
 
-        <!-- Favicon -->
         <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
 
-        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-        <!-- Font Awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <script>
@@ -95,20 +91,23 @@
                 border-color: #f1f5f9 !important;
                 box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
             }
+
+            /* 🌟 FIX TUMPANG TINDIH: Sinkronisasi padding dinamis saat sidebar dilipat/dibuka */
+            @media (min-width: 768px) {
+                html.sidebar-is-collapsed #mainContent {
+                    padding-left: 5rem !important; /* Menyisakan ruang w-20 */
+                }
+            }
         </style>
     </head>
     <body class="font-sans antialiased" style="font-family: 'Plus Jakarta Sans', sans-serif;">
         @if(auth()->check() && auth()->user()->role === 'admin')
-            <!-- ADMIN LAYOUT (SIDE-BY-SIDE SIDEBAR) -->
-            <div class="min-h-screen bg-slate-50 flex overflow-x-hidden">
+            <div class="min-h-screen bg-slate-50 flex overflow-x-hidden relative w-full">
                 @include('layouts.navigation')
 
-                <!-- RIGHT CONTENT AREA -->
-                <div class="flex-grow flex flex-col min-w-0 min-h-screen">
-                    <!-- HEADER TOPBAR -->
+                <div id="mainContent" class="flex-grow flex flex-col min-w-0 min-h-screen transition-all duration-300 md:pl-64">
                     <header class="bg-slate-50 h-24 flex items-center justify-end px-8 shrink-0">
                         <div class="flex items-center gap-4">                       
-                            <!-- Date & Time Widget -->
                             <div class="bg-white border border-slate-200 rounded-2xl px-4 py-2 flex items-center gap-3 shadow-sm text-xs text-slate-600 font-semibold h-11 shrink-0">
                                 <i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i>
                                 <div class="leading-tight">
@@ -119,7 +118,6 @@
                         </div>
                     </header>
 
-                    <!-- Page Heading (Optional, e.g. for breadcrumbs) -->
                     @if (isset($header))
                         <div class="bg-white border-b border-slate-100 py-6">
                             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -128,52 +126,42 @@
                         </div>
                     @endif
 
-                    <!-- Page Content -->
                     <main class="flex-grow pb-12">
                         {{ $slot }}
                     </main>
 
-                    <!-- Admin Footer -->
                     <footer class="border-t border-slate-200/60 bg-white/40 backdrop-blur-md py-6 text-center mt-auto shrink-0">
                         <p class="text-slate-500 text-xs font-semibold">&copy; 2026 Mori Nalove System &mdash; Panel Admin</p>
                     </footer>
                 </div>
             </div>
         @else
-            <!-- PUBLIC USER LAYOUT (FULL WIDTH WITH TOP MINIMAL HEADER) -->
             <div class="min-h-screen bg-slate-50 flex flex-col">
-                <!-- HEADER MINIMALIS -->
                 <header class="bg-white/70 backdrop-blur-md border-b border-slate-200/60 sticky top-0 z-40 w-full shrink-0">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-                        <!-- Kiri: Logo + Nama Proyek -->
                         <div class="flex items-center gap-3">
                             <img src="{{ asset('img/logo-mori-nalove.png') }}" class="h-12 w-auto transition-transform duration-300 ease-out hover:scale-110 cursor-pointer" alt="Logo Mori Nalove">
                             <span class="text-xs font-semibold text-slate-400 border-l border-slate-200 pl-3 hidden sm:inline">Monitoring Dan Peringatan Dini</span>
                         </div>
 
-                        <!-- Kanan: Tombol Login Admin Tersembunyi Presisi -->
                         <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 hover:text-blue-600 text-xs font-bold transition-all shadow-sm">
                             <i class="fa-solid fa-lock"></i>
                         </a>
                     </div>
                 </header>
 
-                <!-- Page Content -->
                 <main class="flex-grow pb-12">
                     {{ $slot }}
                 </main>
 
-                <!-- Global Footer -->
                 <footer class="border-t border-slate-200/60 bg-white/40 backdrop-blur-md py-6 text-center mt-auto shrink-0">
                     <p class="text-slate-500 text-xs font-semibold">&copy; 2026 Mori Nalove System &mdash; Monitoring Dan Peringatan Dini.</p>
                 </footer>
             </div>
         @endif
 
-        <!-- Sidebar Toggle Interactivity -->
         <script src="{{ asset('js/sidebar-toggle.js') }}"></script>
         
-        <!-- Live Calendar Time Updater -->
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 function updateTopbarTime() {

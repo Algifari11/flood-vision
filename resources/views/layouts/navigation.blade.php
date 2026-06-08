@@ -8,9 +8,9 @@
         </button>
     </div>
 
-    <aside id="sidebarAdmin" class="-translate-x-full fixed md:translate-x-0 md:relative top-0 left-0 z-50 w-64 h-screen bg-white text-slate-700 border-r border-slate-200 transition-all duration-300 flex flex-col shrink-0 shadow-xl md:shadow-sm">
+    <aside id="sidebarAdmin" class="-translate-x-full fixed md:translate-x-0 top-0 left-0 z-50 w-64 h-screen bg-white text-slate-700 border-r border-slate-200 transition-all duration-300 flex flex-col shrink-0 shadow-xl md:shadow-sm">
         
-        <div class="h-16 flex items-center justify-between md:justify-center px-4 border-b border-slate-100 shrink-0 w-full">
+        <div id="btnToggleSidebar" class="h-16 flex items-center justify-between md:justify-center px-4 border-b border-slate-100 shrink-0 w-full cursor-pointer hover:bg-slate-50/80 transition-colors">
             <img src="{{ asset('img/logo-mori-nalove.png') }}" alt="Mori Nalove Logo" class="h-9 w-auto object-contain shrink-0 md:mx-auto">
             
             <button onclick="toggleMobileSidebar()" class="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg md:hidden">
@@ -97,9 +97,8 @@
 
     <style>
         @media (max-w: 767px) {
-            /* Jalankan rule ini hanya ketika dibuka dari layar HP */
             body, .py-8, .min-h-screen {
-                padding-top: 4rem !important; /* Memberi ruang 64px agar konten Command Center turun di bawah Navbar HP */
+                padding-top: 4rem !important;
             }
         }
     </style>

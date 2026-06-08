@@ -54,18 +54,6 @@
         </div>
 
         <div>
-            <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Status Kondisi</label>
-            <div class="relative">
-                <select class="w-full bg-slate-100 border border-slate-200 rounded-xl pl-4 pr-10 py-2.5 text-sm text-slate-400 outline-none cursor-not-allowed appearance-none" disabled>
-                    <option value="Normal" selected>Normal (Otomatis Terdeteksi YOLO)</option>
-                </select>
-                <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-300">
-                    <i data-lucide="lock" class="w-4 h-4"></i>
-                </div>
-            </div>
-        </div>
-
-        <div>
             <label class="block text-xs font-bold text-slate-600 mb-1.5 uppercase tracking-wide">Keterangan</label>
             <textarea id="keterangan" name="keterangan" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 resize-none transition-all" placeholder="Tambahkan catatan kondisi sungai..."></textarea>
         </div>

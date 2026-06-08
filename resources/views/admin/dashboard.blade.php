@@ -1,6 +1,7 @@
 <x-app-layout>
     @section('title', 'Dashboard Admin')
-    <div class="py-8 relative min-h-screen">
+    
+    <div class="py-8 relative min-h-screen w-full transition-all duration-300">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-20">
             
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 bg-white/40 backdrop-blur-md border border-white/50 rounded-3xl p-6 shadow-sm transition-all duration-300 hover:bg-white/60 hover:shadow-md">
@@ -18,9 +19,7 @@
                 </a>
             </div>
 
-            <!-- Bento Grid Statistik -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <!-- Total Laporan -->
                 <div class="bg-white/40 backdrop-blur-md border border-white/50 rounded-3xl p-6 shadow-sm transition-all duration-300 hover:bg-white/60 hover:shadow-md flex items-center justify-between group">
                     <div>
                         <span class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">Total Laporan Warga</span>
@@ -31,7 +30,6 @@
                     </div>
                 </div>
 
-                <!-- Total Berita -->
                 <div class="bg-white/40 backdrop-blur-md border border-white/50 rounded-3xl p-6 shadow-sm transition-all duration-300 hover:bg-white/60 hover:shadow-md flex items-center justify-between group">
                     <div>
                         <span class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">Total Berita</span>
@@ -42,7 +40,6 @@
                     </div>
                 </div>
 
-                <!-- Total Video -->
                 <div class="bg-white/40 backdrop-blur-md border border-white/50 rounded-3xl p-6 shadow-sm transition-all duration-300 hover:bg-white/60 hover:shadow-md flex items-center justify-between group">
                     <div>
                         <span class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">Video Teranalisis</span>
@@ -53,7 +50,6 @@
                     </div>
                 </div>
 
-                <!-- Total Peringatan -->
                 <div class="bg-white/40 backdrop-blur-md border border-white/50 rounded-3xl p-6 shadow-sm transition-all duration-300 hover:bg-white/60 hover:shadow-md flex items-center justify-between group">
                     <div>
                         <span class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">Peringatan Darurat</span>
@@ -66,14 +62,11 @@
             </div>
             
             <div class="space-y-8">
-                <!-- Tren Ketinggian Air (Grafik) - Lebar Penuh -->
                 <div class="w-full">
                     @include('admin.partials.water-chart')
                 </div>
 
-                <!-- Laporan Darurat Baru - Lebar Penuh di Bawahnya -->
                 <div class="w-full">
-                    {{-- @include('admin.partials.camera-feed') --}}
                     @include('admin.partials.recent-reports')
                 </div>
             </div>
@@ -89,11 +82,11 @@
     @include('admin.partials.camera-modal')
 
     <style>
-        /* Menyembunyikan scrollbar untuk slider berita */
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
     </style>
+    
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.0.1/dist/chartjs-plugin-annotation.min.js"></script>
@@ -102,7 +95,6 @@
         window.onOpenCvReady = function() {
             console.log('OpenCV.js is ready.');
         };
-        // Initialize Icons
         lucide.createIcons();
     </script>
     

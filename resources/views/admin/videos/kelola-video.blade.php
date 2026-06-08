@@ -52,7 +52,7 @@
 
                 <div class="xl:col-span-3 bg-white/40 backdrop-blur-md border border-white/50 rounded-3xl p-6 shadow-sm transition-all duration-300 hover:bg-white/50 space-y-5">
                     
-                    <div class="text-slate-700">
+                    <div class="text-slate-700" id="videoListContainer">
                         @include('admin.partials.list-video')
                     </div>
                 </div>
@@ -70,4 +70,17 @@
     </script>
     
     <script src="{{ asset('js/kelola-video.js') }}"></script>
+
+    <style>
+        #videoListContainer *, 
+        #videoListContainer p, 
+        #videoListContainer span, 
+        #videoListContainer div {
+            overflow: visible !important;
+            text-overflow: unset !important;
+            white-space: normal !important;
+            word-break: break-word !important;
+            max-width: 100% !important;
+        }
+    </style>
 </x-app-layout>
