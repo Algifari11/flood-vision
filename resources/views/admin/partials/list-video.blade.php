@@ -1,4 +1,4 @@
-<div class="lg:col-span-7 space-y-8">
+<div class="space-y-8">
     
     <div class="bg-white/40 backdrop-blur-md border border-white/50 rounded-3xl p-6 shadow-sm transition-all duration-300 hover:bg-white/60 hover:shadow-md flex flex-col relative overflow-hidden" id="yoloPreviewCard">
         <h2 class="text-base font-black text-slate-800 tracking-tight mb-4 flex items-center gap-2">

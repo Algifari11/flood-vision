@@ -92,7 +92,7 @@
                 box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
             }
 
-            /* 🌟 FIX TUMPANG TINDIH: Sinkronisasi padding dinamis saat sidebar dilipat/dibuka */
+            /* FIX TUMPANG TINDIH: Sinkronisasi padding dinamis saat sidebar dilipat/dibuka */
             @media (min-width: 768px) {
                 html.sidebar-is-collapsed #mainContent {
                     padding-left: 5rem !important; /* Menyisakan ruang w-20 */
@@ -102,12 +102,12 @@
     </head>
     <body class="font-sans antialiased" style="font-family: 'Plus Jakarta Sans', sans-serif;">
         @if(auth()->check() && auth()->user()->role === 'admin')
-            <div class="min-h-screen bg-slate-50 flex overflow-x-hidden relative w-full">
+            <div class="min-h-screen bg-slate-50 flex flex-col md:flex-row overflow-x-hidden relative w-full">
                 @include('layouts.navigation')
 
-                <div id="mainContent" class="flex-grow flex flex-col min-w-0 min-h-screen transition-all duration-300 md:pl-64">
+                <div id="mainContent" class="flex-1 flex flex-col min-w-0 min-h-screen transition-all duration-300 md:pl-64">
                     <header class="bg-slate-50 h-24 flex items-center justify-end px-8 shrink-0">
-                        <div class="flex items-center gap-4">                       
+                        <div class="flex items-center gap-4">       
                             <div class="bg-white border border-slate-200 rounded-2xl px-4 py-2 flex items-center gap-3 shadow-sm text-xs text-slate-600 font-semibold h-11 shrink-0">
                                 <i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i>
                                 <div class="leading-tight">
@@ -130,7 +130,7 @@
                         {{ $slot }}
                     </main>
 
-                    <footer class="border-t border-slate-200/60 bg-white/40 backdrop-blur-md py-6 text-center mt-auto shrink-0">
+                    <footer class="border-t border-slate-200/60 bg-white py-6 text-center mt-auto shrink-0 z-20">
                         <p class="text-slate-500 text-xs font-semibold">&copy; 2026 Mori Nalove System &mdash; Panel Admin</p>
                     </footer>
                 </div>

@@ -1,8 +1,8 @@
 <x-app-layout>
     @section('title', 'Kelola Video')
     
-    <div class="py-8 relative min-h-screen">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8 pb-20">
+    <div class="py-8 pb-32 relative min-h-screen">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
             
             @if (session('success'))
                 <div class="p-4 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-2xl flex items-center gap-3 text-sm font-semibold shadow-sm animate-[slideDown_0.2s_ease-out]">
@@ -30,35 +30,23 @@
                         Unggah video pemantauan banjir atau perbarui konten edukasi bencana warga untuk sistem Mori Nalove.
                     </p>
                 </div>
-
                 <div class="bg-white/40 backdrop-blur-md border border-white/50 rounded-2xl p-3 flex items-center gap-4 shadow-sm w-fit shrink-0">
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 xl:grid-cols-5 gap-8 items-start">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 
-                <div class="xl:col-span-2 bg-white/40 backdrop-blur-md border border-white/50 rounded-3xl p-6 shadow-sm transition-all duration-300 hover:bg-white/50 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-48 h-48 bg-amber-50/30 rounded-full blur-3xl -z-10"></div>
-                    
-                    <div class="flex items-center gap-2.5 border-b border-slate-200/40 pb-4 mb-5">
-                        <div class="p-2 bg-amber-100/80 text-amber-600 rounded-xl"><i data-lucide="plus-circle" class="w-4 h-4"></i></div>
-                        <h3 class="text-base font-black text-slate-800 tracking-tight">Sematkan Tautan Pemantauan</h3>
-                    </div>
-
-                    <div class="relative z-10 text-slate-700">
-                        @include('admin.partials.form-upload')
-                    </div>
+                <!-- Sisi Kiri: Form Upload (5/12) -->
+                <div class="lg:col-span-5">
+                    @include('admin.partials.form-upload')
                 </div>
 
-                <div class="xl:col-span-3 bg-white/40 backdrop-blur-md border border-white/50 rounded-3xl p-6 shadow-sm transition-all duration-300 hover:bg-white/50 space-y-5">
-                    
-                    <div class="text-slate-700" id="videoListContainer">
-                        @include('admin.partials.list-video')
-                    </div>
+                <!-- Sisi Kanan: List Video & Status AI YOLO (7/12) -->
+                <div class="lg:col-span-7">
+                    @include('admin.partials.list-video')
                 </div>
                 
             </div>
-
         </div>
     </div>
 

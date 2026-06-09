@@ -1,6 +1,9 @@
-<section class="lg:col-span-5 bg-white/40 backdrop-blur-md border border-white/50 rounded-3xl p-6 shadow-sm transition-all duration-300 hover:bg-white/60 hover:shadow-md">
-    <h2 class="text-base font-black text-slate-800 tracking-tight mb-5 flex items-center gap-2">
-        <i data-lucide="upload-cloud" class="w-5 h-5 text-blue-600"></i> Upload Video Baru
+<section class="bg-white/40 backdrop-blur-md border border-white/50 rounded-3xl p-6 shadow-sm transition-all duration-300 hover:bg-white/60 hover:shadow-md relative overflow-hidden group">
+    <!-- Ornamen Amber Glow Premium -->
+    <div class="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl -z-10"></div>
+
+    <h2 class="text-base font-black text-slate-800 tracking-tight mb-5 flex items-center gap-2 border-b border-slate-200/40 pb-4">
+        <i data-lucide="upload-cloud" class="w-5 h-5 text-amber-500"></i> Upload Video Baru
     </h2>
 
     <form id="standaloneVideoForm" class="space-y-5" action="{{ route('admin.kelola_video.store') }}" method="POST" enctype="multipart/form-data" onsubmit="showLoading(event)">
