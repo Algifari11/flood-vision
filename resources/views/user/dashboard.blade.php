@@ -6,6 +6,7 @@
     <div class="py-8 relative min-h-screen space-y-8">
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
+
             <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 items-stretch">
                 <div class="xl:col-span-1 flex flex-col space-y-8">
                     @include('user.partials.safety-guide')
@@ -181,7 +182,6 @@
             });
         }
 
-        // NAMA FUNGSI BARU AGAR KEBAL DARI FILE LAMA
         function muatDataAI(namaSungai) {
             document.getElementById('chartSkeleton')?.classList.remove('hidden');
             document.getElementById('chartContainer')?.classList.add('opacity-0');
@@ -195,7 +195,6 @@
                     if (res.success && res.data) {
                         const data = res.data;
 
-                        // JIKA SUNGAI BELUM PUNYA DATA VIDEO SAMA SEKALI
                         if (data.chart_data.length === 0) {
                             if (waterChartInstance) {
                                 waterChartInstance.data.labels = ['Kosong'];
@@ -211,9 +210,7 @@
                                 elStatus.className =
                                     'text-sm font-bold mt-1 px-2 py-0.5 rounded inline-block truncate max-w-full bg-slate-500 text-white';
                             }
-                        }
-                        // JIKA DATA TERSEDIA, LUKIS GRAFIK!
-                        else {
+                        } else {
                             if (waterChartInstance) {
                                 waterChartInstance.data.labels = data.chart_labels;
                                 waterChartInstance.data.datasets[0].data = data.chart_data;
@@ -267,7 +264,6 @@
                                 waterChartInstance.update();
                             }
 
-                            // UPDATE KARTU AI
                             document.getElementById('ai_level_air').innerText = data.current_level;
                             document.getElementById('ai_risk_score').innerText = data.risk_score;
 
@@ -302,7 +298,6 @@
             }, 300);
         }
 
-        // FUNGSI BARU UNTUK TOMBOL REFRESH
         function refreshDataAI() {
             const sungai = document.getElementById('riverSelect').value;
             muatDataAI(sungai);
@@ -326,10 +321,8 @@
     <script async src="https://docs.opencv.org/4.8.0/opencv.js" onload="onOpenCvReady();"></script>
     <script src="{{ asset('js/dashboard-api.js') }}"></script>
 
-    <!-- FILE JS DUMMY (water-chart.js) TELAH DIHAPUS DARI SINI -->
-
     <script src="{{ asset('js/chatbot.js') }}"></script>
     <script src="{{ asset('js/news-modal.js') }}"></script>
-    <script src="{{ asset('js/citizen-reports.js') }}"></script>
+
     <script src="{{ asset('js/user-dashboard-specific.js') }}"></script>
 </x-app-layout>
